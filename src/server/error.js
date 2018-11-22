@@ -1,5 +1,5 @@
 var statusCodes = require('http-status-codes');
-var debug = require('debug')('task-manager:error');
+var debug = require('debug')('reddelight:error');
 
 debug.log = console.info.bind(console);
 

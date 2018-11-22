@@ -4,11 +4,9 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var debug = require('debug')('task-manager:app');
+var debug = require('debug')('reddelight:app');
 require('./database/database.js');
 var users = require('./routes/users');
-var groups = require('./routes/groups');
-var tasks = require('./routes/tasks');
 var error = require('./error.js');
 var statusCodes = require('http-status-codes');
 
@@ -27,9 +25,7 @@ apiv1.use('/users', users.publicRoutes);
 
 apiv1.use(users.security);
 
-apiv1.use('/users', users.privateRoutes);
-apiv1.use('/groups', groups.privateRoutes);
-apiv1.use('/tasks', tasks.privateRoutes);
+// apiv1.use('/users', users.privateRoutes);
 
 apiv1.use(function(req, res) {
 	error.sendError(res, error.notFound('Link not found'));

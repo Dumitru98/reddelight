@@ -6,7 +6,7 @@
 
 require('dotenv').config();
 var app = require('./app');
-var debug = require('debug')('task-manager:server');
+var debug = require('debug')('reddelight:server');
 var http = require('http');
 
 debug.log = console.info.bind(console);

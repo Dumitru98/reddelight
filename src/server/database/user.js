@@ -16,18 +16,6 @@ var userSchema = mongoose.Schema({
 	token: {
 		type: String,
 		required: true
-	},
-	fullName: {
-		type: String,
-		required: true
-	},
-	email: {
-		type: String,
-		required: true
-	},
-	groupNames: {
-		type: [String],
-		required: true
 	}
 }, {
 	toObject: {
@@ -54,14 +42,11 @@ function encryptPassword(password, salt) {
 
 var User = mongoose.model('User', userSchema);
 
-function createUser(username, password, fullName, email, token, groupNames) {
+function createUser(username, password, token) {
 	var user = new User(_.assign({}, {
 		username: username,
 		password: encryptPassword(password),
-		fullName: fullName,
-		email: email,
 		token: token,
-		groupNames: groupNames
 	}));
 
 	return user.save();
@@ -75,10 +60,6 @@ function findByUsernameAndPassword(username, password) {
 	return User.findOne({ username: username, password: encryptPassword(password)});
 }
 
-function findByEmail(email) {
-	return User.findOne({ email: email });
-}
-
 function findByToken(token) {
 	return User.findOne({ token: token });
 }
@@ -89,17 +70,6 @@ function deleteByUsername(username) {
 
 function listUsers() {
 	return User.find();
-}
-
-function edit(username, email, fullName) {
-	var updatedUser = {};
-	if (email) {
-		updatedUser.email = email;
-	}
-	if (fullName) {
-		updatedUser.fullName = fullName;
-	}
-	return User.updateOne({ username: username }, { $set: updatedUser });
 }
 
 function setPassword(username, password) {
@@ -118,29 +88,17 @@ function setToken(username, token) {
 	return User.updateOne({ username: username }, { $set: { token: token } });
 }
 
-function updateGroups(username, groupName) {
-	return User.updateOne({ username: username }, { $addToSet: { groupNames: groupName } });
-}
-
-function deleteGroup(username, groupName) {
-	return User.updateOne({ username: username}, { $pull: { groupNames: groupName } });
-}
-
 var user = {
 	createUser,
 	findByUsername,
 	findByUsernameAndPassword,
-	findByEmail,
 	findByToken,
 	deleteByUsername,
-	edit,
 	editPassword,
 	setPassword,
 	resetPassword,
 	listUsers,
 	setToken,
-	updateGroups,
-	deleteGroup
 };
 
 module.exports = user;
