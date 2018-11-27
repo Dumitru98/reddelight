@@ -1,0 +1,30 @@
+O luna version - Site vanzare Lenjerie - Andreea Livia - nume: Red Delicht
+Colaboratori: Aluculesei Marius-Andrei si Dumitru Alexandru-Calin.
+
+Caracteristici V1.0 (INTREBARE NUMAR UTILIZATORI!!!!!!!!!!!!!):
+    - Afisare bunuri - 100 Lei
+    - Search bar - 200 Lei 
+    - Pagina admin pt actualizare preturi/cantitati - 150 Lei
+    - Pagina principala cu informatii linkare la Social Media - 50 Lei
+    - Pagina comenzi (instiintare email pe propietar) - 100 Lei
+    - Hostare server personal - 100 Lei
+    - Achizitie domeniu - 100 Lei de baza - Variabil
+    - Basic CSS - Bootstrap - 100 Lei
+    - Poze Statice
+Intrebari:
+Caracteristici V2.0:
+    - Plus minus tracing la comanda.
+    - Login/Signup - Latitudinea cumparatorului -200 Lei-postpone
+    - Hostare pe serverul cumparatorului - Presupune achizitionare de server de catre cumparator
+    - Preview produse still Gucci
+    - Live chat
+    - CSS Updated
+    - Optimizare rulare
+    - Failsafe
+    - Posibil poze miscatoare
+Discutabil V1.0 sau V2.0:
+    - Advertising pe site, la alte chestii + advertising la site, pe retele de socializare.
+Pret de inceput V1.0: 
+    Full option: 900 Lei.
+Pret V2.0: 
+    Full option V1 V2: 3500 Lei Negociiabil 
