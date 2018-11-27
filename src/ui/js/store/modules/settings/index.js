@@ -3,6 +3,7 @@ module.exports = {
 	state: {
 		LOGIN: '/login.html',
 		SIGNUP: '/signup.html',
+		DASHBOARD: '/dashboard.html'
 	},
 	actions: {
 		redirect(store, application) {
