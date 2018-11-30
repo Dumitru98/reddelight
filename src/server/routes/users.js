@@ -95,7 +95,7 @@ privateApp.post('/update', async function (req, res) {
 		let user = await db.user.findByToken(req.body.token);
 
 		if (user) {
-			await db.user.updateInfo(req.body.username, req.body.name, req.body.email, req.body.address, req.body.phone);
+			await db.user.updateInfo(req.body.userInfo.username, req.body.userInfo.name, req.body.userInfo.email, req.body.userInfo.address, req.body.userInfo.phone);
 			debug('Updated user successful');
 			return res.status(200).send({ err: 0 });
 		} else {

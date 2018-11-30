@@ -37,8 +37,19 @@ publicApp.post('/add', async function(req, res) {
 		var category = await db.category.findByCategoryName(req.body.name);
 
 		if (category) {
-			for (let product of req.body.products) {
-				await db.category.addProduct(req.body.name, product);
+			for (let id of req.body.ids) {
+				await db.product.addCategory(id, name);
+				
+				let product = await db.product.getById(id);
+
+				var newProduct = {
+					id: product.id,
+					name: product.name,
+					price: product.price,
+					stock: product.stock
+				};
+
+				await db.category.addProduct(req.body.name, newProduct);
 			}
 
 			debug('Product added');
@@ -75,6 +86,10 @@ publicApp.post('/delete', async function(req, res) {
 		var category = db.category.findByCategoryName(req.body.name);
 
 		if (category) {
+			for (let id of category.products) {
+				await db.product.deleteCategory(id, name);
+			}
+
 			await db.category.deleteCategory(req.body.name);
 
 			debug('The category was successful deleted');

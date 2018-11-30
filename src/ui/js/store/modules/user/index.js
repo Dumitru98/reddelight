@@ -1,7 +1,7 @@
 var Vue = require('vue');
 var setup = require('../../setup.js');
 
-var KEY_TOKEN = 'task-manager.token';
+var KEY_TOKEN = 'reddelight.token';
 Vue.http.interceptors.push(function(request, next) {
 	if (window.localStorage.getItem(KEY_TOKEN)) {
 		request.headers.set('Authorization', 'Bearer ' + window.localStorage.getItem(KEY_TOKEN));
@@ -27,12 +27,36 @@ module.exports = {
 	},
 
 	actions: {
+		async signup(store, credentials) {
+			try {
+				let response = await Vue.http.post(setup.API + '/users/signup', credentials);
+
+				if (response.data.token) {
+					store.commit('token', response.data.token);
+
+					return true;
+				} else {
+					Vue.toast.customToast({
+						title: 'Sign Up: Fail',
+						message: response.data.message,
+						type: 'warning'
+					});
+
+					return false;
+				}
+			} catch (error) {
+				Vue.toast.serverErrorToast(error);
+				return false;
+			}
+		},
+
 		async login(store, credentials) {
 			try {
 				let response = await Vue.http.post(setup.API + '/users/login', credentials);
 
 				if (response.data.token) {
 					store.commit('token', response.data.token);
+
 					return true;
 				} else {
 					Vue.toast.customToast({
@@ -49,61 +73,13 @@ module.exports = {
 			}
 		},
 
-		async signup(store, credentials) {
-			try {
-				let response = await Vue.http.post(setup.API + '/users/signup', credentials);
-
-				if (response.data.token) {
-					store.commit('token', response.data.token);
-					return true;
-				} else {
-					Vue.toast.customToast({
-						title: 'Sign Up: Fail',
-						message: 'Your user couldn\'t be created.',
-						type: 'warning'
-					});
-
-					return false;
-				}
-			} catch (error) {
-				Vue.toast.serverErrorToast(error);
-				return false;
-			}
-		},
-
-		async logout(store, token) {
-			try {
-				let response = await Vue.http.post(setup.API + '/users/logout', token);
-				store.commit('token', null);
-
-				if (response.data.err === 0) {
-					return true;
-				} else {
-					Vue.toast.customToast({
-						title: 'Log Out: Fail',
-						message: 'Could not complete the logout.',
-						type: 'warning'
-					});
-
-					return false;
-				}
-			} catch (error) {
-				Vue.toast.serverErrorToast(error);
-				return false;
-			}
-		},
-
-		token(store) {
-			store.commit('token', null);
-			return true;
-		},
-
 		async get(store) {
 			try {
-				let response = await Vue.http.post(setup.API + '/users/get', store.state.token);
+				let response = await Vue.http.get(setup.API + '/users/get', store.state.token);
 
 				if (response.data.err === 0) {
 					store.commit ('user', response.data.user);
+					
 					return response.data.user;
 				} else {
 					Vue.toast.customToast({
@@ -122,7 +98,7 @@ module.exports = {
 
 		async update(store, userInfo) {
 			try {
-				let response = await Vue.http.post(setup.API + '/users/update', userInfo);
+				let response = await Vue.http.post(setup.API + '/users/update', userInfo, store.state.token);
 
 				if (response.data.err === 0) {
 					store.commit ('user', response.data.user);
@@ -130,7 +106,7 @@ module.exports = {
 					if(this.notifications)
 						Vue.toast.customToast({
 							title: 'Update Personal Informations: Success',
-							message: 'The personal informations have been updated.',
+							message: response.data.message,
 							type: 'info'
 						});
 
@@ -151,15 +127,18 @@ module.exports = {
 			}
 		},
 
-		async check(store, username) {
+		async logout(store, token) {
 			try {
-				let response = await Vue.http.post(setup.API + '/users/check/name', {username: username});
+				let response = await Vue.http.post(setup.API + '/users/logout', token);
 
 				if (response.data.err === 0) {
+					store.commit('token', null);
+					store.commit('user', null);
+
 					return true;
 				} else {
 					Vue.toast.customToast({
-						title: 'Checking the Username: Fail',
+						title: 'Log Out: Fail',
 						message: response.data.message,
 						type: 'warning'
 					});
@@ -167,6 +146,36 @@ module.exports = {
 					return false;
 				}
 			} catch (error) {
+				Vue.toast.serverErrorToast(error);
+				return false;
+			}
+		},
+
+		token(store) {
+			store.commit('token', null);
+
+			return true;
+		},
+
+		async delete(store, token) {
+			try {
+				let response = await Vue.http.post(setup.API + '/users/delete', token);
+
+				if (response.data.err === 0) {
+					store.commit('token', null);
+					store.commit('user', null);
+
+					return false;
+				} else {
+					Vue.toast.customToast({
+						title: 'Delete User: Fail',
+						message: response.data.message,
+						type: 'warning'
+					});
+
+					return false;
+				}
+			} catch(error) {
 				Vue.toast.serverErrorToast(error);
 				return false;
 			}
