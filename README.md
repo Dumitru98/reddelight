@@ -46,7 +46,6 @@ Dashboard
 		-updateUserInfo			v
 		-sendCommand
 
-		-getLatestProducts
 		-getAllProducts			v
 		-getProductsByCategory	v
 		-createNewProduct		v
@@ -58,14 +57,18 @@ Dashboard
 		-Name(string)			v
 		-Price(number)			v
 		-Stock(number)			v
+		-categories[string]		v
 		-sizes[string]
 		-colors[string]
 		-seazon(string)
 		-discount(number)
+		-date(date)
 	}
 		-productsByCategory(categoryName) => List of Products		v
 		-allProducts() => bool										v
 		-getUserInfo(token) => bool									v
-		-createProduct(Product/productID=0,[categoryName]) => bool
-		-deleteProduct(ProductId) => bool
-		-changeProduct(ProductId,[ChangedFields]) => bool
+		-createProduct(Product,[categoryName]) => bool				v
+		-deleteProduct(ProductId) => bool							v
+		-createCategory(name) => bool								v
+		-deleteCategory(name) => bool								v
+		-addProductsToCategory(name,[productIds]) => bool			v

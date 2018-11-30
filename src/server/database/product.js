@@ -22,6 +22,10 @@ var productSchema = mongoose.Schema({
 	categories: {
 		type: [String],
 		required: true
+	},
+	date: {
+		type: Date,
+		required: true
 	}
 }, {
 	toObject: {
