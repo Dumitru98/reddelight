@@ -126,6 +126,25 @@ privateApp.post('/logout', async function(req, res) {
 	}
 });
 
+privateApp.post('/delete', async function(req, res) {
+	try {
+		var user = db.user.findByUsername(req.body.username);
+
+		if (user) {
+			await db.user.deleteByUsername(req.body.username);
+
+			debug('User deleted successful');
+			return res.status(200).send({ err: 0 });
+		} else {
+			debug('User doesn\'t exist');
+			return res.status(200).send({ err: 1, message: 'User ' + req.body.username + ' doesn\'t exist!'});
+		}
+	} catch(e) {
+		debug('Server serror');
+		return res.status(400).send({ err: 1, message: 'Server error!\n' + e });
+	}
+});
+
 module.exports.publicRoutes = publicApp;
 module.exports.security = security;
 module.exports.privateRoutes = privateApp;

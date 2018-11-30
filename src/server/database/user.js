@@ -75,7 +75,7 @@ function findByToken(token) {
 }
 
 function deleteByUsername(username) {
-	return User.remove({ username });
+	return User.deleteOne({ username });
 }
 
 function listUsers() {
