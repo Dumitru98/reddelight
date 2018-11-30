@@ -9,7 +9,7 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li class="nav-item">
 		<a class="nav-link" href="dashboard.html">Dashboard</a>
       </li>
       <li class="nav-item">
@@ -21,7 +21,7 @@
 		<li class="nav-item">
         <a class="nav-link" href="shoppingCart.html">Shopping Cart</a>
       </li>
-		<li class="nav-item">
+		<li class="nav-item active">
 		<a class="nav-link" href="contact.html">Contact</a>
       </li>
     </ul>
@@ -35,7 +35,7 @@
 var Loading = require('../Loading.vue');
 
 module.exports = {
-	name: 'Dashboard',
+	name: 'Contact',
 
 	components: {
 		Loading
