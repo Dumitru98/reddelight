@@ -21,7 +21,10 @@
 		<li class="nav-item">
 		<a class="nav-link" href="contact.html">Contact</a>
       </li>
-    </ul>
+		<li class="nav-item">
+		<a class="nav-link" href="controlPanel.html">Control Panel</a>
+		</li>
+	</ul>
   </div>
 </nav>
 </div>
