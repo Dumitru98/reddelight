@@ -13,6 +13,7 @@ module.exports = function(grunt) {
 					'build/ui/js/shop.js': ['src/ui/js/shop.js'],
 					'build/ui/js/contact.js': ['src/ui/js/contact.js'],
 					'build/ui/js/commandPage.js': ['src/ui/js/commandPage.js'],
+					'build/ui/js/controlPanel.js': ['src/ui/js/controlPanel.js']
                 },
                 options: {
                     transform: ['vueify']

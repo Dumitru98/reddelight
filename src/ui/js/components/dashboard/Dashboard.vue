@@ -21,9 +21,31 @@
 				<li class="nav-item">
 				<a class="nav-link" href="contact.html">Contact</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="controlPanel.html">Control Panel</a>
+			</li>
+			</ul>
+
+			<ul class="navbar-nav ml-auto">
+				<li class="navbar-text">
+					<a class="nav-link" href="login.html">Login</a>
+				</li>
+				<li class="navbar-text">
+					<a class="nav-link" href="signup.html">Sign up</a>
+				</li>
 			</ul>
 		</div>
 	</nav>
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="box-part text-center">
+				<div class="title">
+					<h4>Lorem ipsum</h4>
+				</div>
+				<div class="text">
+					<span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
+				</div>
+			</div>
+		</div>
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active">
