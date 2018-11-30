@@ -39,10 +39,10 @@
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<div class="box-part text-center">
 				<div class="title">
-					<h4>Bine ati venit</h4>
+					<h4>Lorem ipsum</h4>
 				</div>
 				<div class="text">
-					<span>Reduceri nemaipomenite pentru sezonul de iarna</span>
+					<span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
 				</div>
 			</div>
 		</div>
