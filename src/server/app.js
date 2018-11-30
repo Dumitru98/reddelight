@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 var debug = require('debug')('reddelight:app');
 require('./database/database.js');
 var users = require('./routes/users');
+var categories = require('./routes/categories');
+var products = require('./routes/products');
 var error = require('./error.js');
 var statusCodes = require('http-status-codes');
 
@@ -22,10 +24,12 @@ apiv1.use(bodyParser.json());
 
 
 apiv1.use('/users', users.publicRoutes);
+apiv1.use('/categories', categories.publicRoutes);
+apiv1.use('/products', products.publicRoutes);
 
 apiv1.use(users.security);
 
-// apiv1.use('/users', users.privateRoutes);
+apiv1.use('/users', users.privateRoutes);
 
 apiv1.use(function(req, res) {
 	error.sendError(res, error.notFound('Link not found'));
@@ -38,7 +42,7 @@ app.use('/api/v1', apiv1);
 app.use(express.static(path.join(__dirname, '../ui')));
 
 app.get('/', function(req, res) {
-	res.redirect('/login.html');
+	res.redirect('/dashboard.html');
 });
 
 /** */

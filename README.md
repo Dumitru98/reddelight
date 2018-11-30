@@ -7,8 +7,9 @@ Signup -
 	///Done
 Control Panel Admin - 
 	-Add/Remove item
-		-Item object with price, images, sizes
+		-Item object with price, sizes
 			-colors + images
+		-Category for the product
 	-Change Item
 		-Add/remove image
 		-Change price
@@ -36,3 +37,18 @@ Dashboard
 		-Show total price
 		-Redirect to command
 	-Contact + link social media
+
+	-ROUTES:
+		-getUserInfo			v
+		-logInUser				v
+		-signUpUser				v
+		-logOutUser				v
+		-updateUserInfo			v
+		-sendCommand
+
+		-getLatestProducts
+		-getAllProducts			v
+		-getProductsByCategory	v
+		-sendCommand
+		-createNewProduct		v
+		-deleteProduct			v

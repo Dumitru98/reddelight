@@ -6,16 +6,30 @@ var userSchema = mongoose.Schema({
 	username: {
 		type: String,
 		required: true,
-		unique: true,
+		unique: true
 	},
 	password: {
 		type: String,
 		required: true,
 		unique: true
 	},
+	name: {
+		type: String
+	},
+	email: {
+		type: String,
+		unique: true
+	},
+	address: {
+		type: String
+	},
+	phone: {
+		type: String
+	},
 	token: {
 		type: String,
-		required: true
+		required: true,
+		unique: true
 	}
 }, {
 	toObject: {
@@ -42,12 +56,8 @@ function encryptPassword(password, salt) {
 
 var User = mongoose.model('User', userSchema);
 
-function createUser(username, password, token) {
-	var user = new User(_.assign({}, {
-		username: username,
-		password: encryptPassword(password),
-		token: token,
-	}));
+function createUser(newUser) {
+	var user = new User(_.assign({}, newUser));
 
 	return user.save();
 }
@@ -57,7 +67,7 @@ function findByUsername(username) {
 }
 
 function findByUsernameAndPassword(username, password) {
-	return User.findOne({ username: username, password: encryptPassword(password)});
+	return User.findOne({ username: username, password: encryptPassword(password) });
 }
 
 function findByToken(token) {
@@ -84,6 +94,10 @@ function resetPassword(username, password) {
 	return User.updateOne({ username: username }, { $set: { password: encryptPassword(password) } });
 }
 
+function updateInfo(username, name, email, address, phone) {
+	return User.updateOne({username: username}, { $set: { name: name, email: email, address: address, phone: phone} });
+}
+
 function setToken(username, token) {
 	return User.updateOne({ username: username }, { $set: { token: token } });
 }
@@ -98,6 +112,7 @@ var user = {
 	setPassword,
 	resetPassword,
 	listUsers,
+	updateInfo,
 	setToken,
 };
 
