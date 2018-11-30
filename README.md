@@ -67,5 +67,8 @@ Dashboard
 		-productsByCategory(categoryName) => List of Products
 		-allProducts() => List of Products
 		-getUserInfo(token) => User info
-		-createProduct(Product,[categoryName]) => bool
+		-createProduct(Product/productID=0,[categoryName]) => bool
 		-deleteProduct(ProductId) => bool
+		-changeProduct(ProductId,[ChangedFields]) => bool
+		-createUser
+		-deleteUser

@@ -24,6 +24,45 @@
     </ul>
   </div>
 </nav>
+	<div class="row">
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+			<div class="box-part text-center">
+                <button class="btn btn-block btn-social btn-instagram"></button>
+				<div class="title">
+					<h4>Instagram</h4>
+				</div>
+				<div class="text">
+					<span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
+				</div>
+				<a href="#">Learn More</a>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+			<div class="box-part text-center">
+				<button class="btn btn-block btn-social btn-twitter"></button>
+				<div class="title">
+					<h4>Twitter</h4>
+				</div>
+                 <div class="text">
+					<span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
+				</div>
+                <a href="#">Learn More</a>     
+			</div>
+		</div>
+
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+			<div class="box-part text-center">
+				<button class="btn btn-md btn-fb"><i class="fa fa-facebook pr-1"></i> Facebook</button>
+				<div class="title">
+					<h4>Facebook</h4>
+				</div>
+				<div class="text">
+					<span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.</span>
+				</div>
+				<a href="#">Learn More</a>
+			</div>
+		</div>
+	</div>
 </div>
 </template>
 
