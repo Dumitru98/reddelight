@@ -52,3 +52,20 @@ Dashboard
 		-sendCommand
 		-createNewProduct		v
 		-deleteProduct			v
+	
+	-METHODS:
+	Product:{
+		-productId(number)
+		-Name(string)
+		-Price(number)
+		-Stock(number)
+		-sizes[string]
+		-colors[string]
+		-seazon(string)
+		-discount(number)
+	}
+		-productsByCategory(categoryName) => List of Products
+		-allProducts() => List of Products
+		-getUserInfo(token) => User info
+		-createProduct(Product,[categoryName]) => bool
+		-deleteProduct(ProductId) => bool
