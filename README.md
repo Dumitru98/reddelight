@@ -49,26 +49,23 @@ Dashboard
 		-getLatestProducts
 		-getAllProducts			v
 		-getProductsByCategory	v
-		-sendCommand
 		-createNewProduct		v
 		-deleteProduct			v
 	
 	-METHODS:
 	Product:{
-		-productId(number)
-		-Name(string)
-		-Price(number)
-		-Stock(number)
+		-productId(number)		v
+		-Name(string)			v
+		-Price(number)			v
+		-Stock(number)			v
 		-sizes[string]
 		-colors[string]
 		-seazon(string)
 		-discount(number)
 	}
-		-productsByCategory(categoryName) => List of Products
-		-allProducts() => List of Products
-		-getUserInfo(token) => User info
+		-productsByCategory(categoryName) => List of Products		v
+		-allProducts() => bool										v
+		-getUserInfo(token) => bool									v
 		-createProduct(Product/productID=0,[categoryName]) => bool
 		-deleteProduct(ProductId) => bool
 		-changeProduct(ProductId,[ChangedFields]) => bool
-		-createUser
-		-deleteUser

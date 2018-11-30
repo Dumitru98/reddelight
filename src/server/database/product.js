@@ -18,6 +18,10 @@ var productSchema = mongoose.Schema({
 	stock: {
 		type: Number,
 		required: true
+	},
+	categories: {
+		type: [String],
+		required: true
 	}
 }, {
 	toObject: {
@@ -40,12 +44,27 @@ function createProduct(newProduct) {
 	return product.save();
 }
 
+function getById(id) {
+	return Product.findOne({ id: id });
+}
+
+function addCategory(id, name) {
+	return Product.updateOne({ id: id }, { $addToSet: { categories: name } });
+}
+
+function deleteCategory(id, name) {
+	return Product.updateOne({ id: id }, { $pull: { categories: name } });
+}
+
 function deleteProduct(id) {
 	return Product.deleteOne({ id: id });
 }
 
 var product = {
 	createProduct,
+	getById,
+	addCategory,
+	deleteCategory,
 	deleteProduct
 };
 
