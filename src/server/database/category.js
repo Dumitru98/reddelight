@@ -8,7 +8,8 @@ var categorySchema = mongoose.Schema({
 		unique: true
 	},
 	products: {
-		type: []
+		type: [],
+		required: true
 	}
 }, {
 	toObject: {

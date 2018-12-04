@@ -16,6 +16,7 @@ function createProductId() {
 publicApp.post('/create', async function(req, res) {
 	try {
 		req.body.product.id = createProductId();
+		req.body.product.date = new Date();
 		await db.product.createProduct(req.body.product);
 
 		debug('Product created');
