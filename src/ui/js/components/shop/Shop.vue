@@ -25,6 +25,15 @@
 		<a class="nav-link" href="controlPanel.html">Control Panel</a>
 		</li>
     </ul>
+
+	<ul class="navbar-nav ml-auto">
+				<li class="navbar-text">
+					<a class="nav-link" href="login.html">Login</a>
+				</li>
+				<li class="navbar-text">
+					<a class="nav-link" href="signup.html">Sign up</a>
+				</li>
+			</ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-model="searchToken" >
       <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>

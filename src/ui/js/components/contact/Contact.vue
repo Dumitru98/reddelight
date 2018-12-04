@@ -26,6 +26,15 @@
 		<a class="nav-link" href="controlPanel.html">Control Panel</a>
 		</li>
     </ul>
+
+	<ul class="navbar-nav ml-auto">
+				<li class="navbar-text">
+					<a class="nav-link" href="login.html">Login</a>
+				</li>
+				<li class="navbar-text">
+					<a class="nav-link" href="signup.html">Sign up</a>
+				</li>
+			</ul>
   </div>
 </nav>
 	<div class="row" align="center">

@@ -72,7 +72,7 @@ module.exports = {
 					});
 					this.loadingView = false;
 
-					if (state || this.username=='andy' && this.password=='andy')
+					if (state)
 						await this.$store.dispatch('settings/redirect', this.next);
 				} else {
 					Vue.toast.customToast(this.wrongPassword);
