@@ -10,15 +10,14 @@ debug.log = console.info.bind(console);
 
 publicApp.post('/create', async function(req, res) {
 	try {
-		var category = db.category.findByCategoryName(req.body.name);
+		var name = req.body.name;
+
+		var category = db.category.findByCategoryName(name);
 
 		if (!category) {
-			var newCategory = {
-				name: req.body.name,
-				products: []
-			};
+			var products = [];
 
-			await db.category.createCategory(newCategory);
+			await db.category.createCategory(name, products);
 
 			debug('Category created');
 			return res.status(200).send({ err: 0 });

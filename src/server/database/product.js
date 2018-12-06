@@ -42,8 +42,15 @@ var productSchema = mongoose.Schema({
 
 var Product = mongoose.model('Product', productSchema);
 
-function createProduct(newProduct) {
-	var product = new Product(_.assign({}, newProduct));
+function createProduct(id, name, price, stock, categories, date) {
+	var product = new Product(_.assign({}, {
+		id: id,
+		name: name,
+		price: price,
+		stock: stock,
+		categories: categories,
+		date: date
+	}));
 
 	return product.save();
 }

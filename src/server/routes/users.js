@@ -35,12 +35,17 @@ function security(req, res, next) {
 
 publicApp.post('/signup', async function(req, res) {
 	try {
-		let user = await db.user.findByUsername(req.body.username);
+		var username = req.body.username;
+		var password = req.body.password;
+		var fullName = req.body.fullName;
+		var email = req.body.email;
+
+		let user = await db.user.findByUsername(username);
 
 		if (!user) {
 			var token = createToken();
 
-			await db.user.createUser(req.body);
+			await db.user.createUser(username, password, fullName, email, token);
 			debug('User ' + req.body.username + ' created');
 			return res.status(200).send({ err: 0, token: token });
 		} else {

@@ -15,9 +15,14 @@ function createProductId() {
 
 publicApp.post('/create', async function(req, res) {
 	try {
-		req.body.product.id = createProductId();
-		req.body.product.date = new Date();
-		await db.product.createProduct(req.body.product);
+		var id = createProductId();
+		var date = new Date();
+		var name = req.body.name;
+		var price = req.body.price;
+		var stock = req.body.stock;
+		var categories = req.body.categories;
+
+		await db.product.createProduct(id, name, price, stock, categories, date);
 
 		debug('Product created');
 		return res.status(200).send({ err: 0 });

@@ -26,8 +26,11 @@ var categorySchema = mongoose.Schema({
 
 var Category = mongoose.model('Category', categorySchema);
 
-function createCategory(newCategory) {
-	var category = new Category(_.assign({}, newCategory));
+function createCategory(name, products) {
+	var category = new Category(_.assign({}, {
+		name: name,
+		products: products
+	}));
 
 	return category.save();
 }

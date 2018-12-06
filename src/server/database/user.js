@@ -56,8 +56,14 @@ function encryptPassword(password, salt) {
 
 var User = mongoose.model('User', userSchema);
 
-function createUser(newUser) {
-	var user = new User(_.assign({}, newUser));
+function createUser(username, password, fullName, email, token) {
+	var user = new User(_.assign({}, {
+		username: username,
+		password: encryptPassword(password),
+		fullName: fullName,
+		email: email,
+		token: token
+	}));
 
 	return user.save();
 }

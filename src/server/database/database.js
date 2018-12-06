@@ -55,5 +55,9 @@ try {
 }
 
 var user = require('./user.js');
+var product = require('./product.js');
+var category = require('./category.js');
 
 module.exports.user = user;
+module.exports.product = product;
+module.exports.category = category;
