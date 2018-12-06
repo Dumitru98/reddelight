@@ -50,10 +50,10 @@
 	</form>
 	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="functie()">Remove Product</button>
 	<form>
-		<h2>Change Product</h2>
-		<input v-model="productToChange" placeholder="Product Name to modify">
+		<h2>Create Category</h2>
+		<input v-model="testCategory" placeholder="Category Name">
 	</form>
-	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="functie()">Change Product</button>
+	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="createCategory()">Create Category</button>
 </div>
 </template>
 
@@ -61,10 +61,10 @@
 
 var Loading = require('../Loading.vue');
 class Product {
-	constructor(id, name,image,price){
-		this.id = id;
+	constructor(category, name,stock,price){
+		this.category = category;
 		this.name = name;
-		this.image = image;
+		this.stock = stock;
 		this.price = price;
 	}
 }
@@ -78,11 +78,12 @@ module.exports = {
 	data() {
 
 		return {
-			testid:'',
 			testname:'',
-			testimg:'',
+			testimg:'',//To delete
 			testprice:'',
-			
+			testCategory:'',
+			testStock:'',
+
 			productName:'',
 			productToChange:'',
 			
@@ -96,8 +97,8 @@ module.exports = {
 	},
 
 	methods: {
-		functie(){
-			console.log('Button');
+		async createCategory() {
+			await this.$store.dispatch('category/create', this.testCategory);
 			return new Product;
 		}
 		
