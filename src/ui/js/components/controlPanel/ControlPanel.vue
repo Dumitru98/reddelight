@@ -40,7 +40,16 @@
 		<h2>Add Product</h2>
 		<input v-model="testid" placeholder="Id">
 		<input v-model="testname" placeholder="Name">
-		<input v-model="testimg" placeholder="PathToImage">
+		<select v-model="testCategory">
+			<option v-for="(item,index) in Categories" :key=index :value="item">{{item}}</option>
+		</select>
+		<ul>
+			<li v-for="(category, index) in CategoriesToShow" :key="index">
+				<p>{{category}}<button type="button" @click="outWithCategory(category)">x</button></p>
+			</li>
+		</ul>
+		<button @click="addCategory" class="btn" type="button">Add Category</button>
+		
 		<input v-model="testprice" placeholder="Price">
 	</form>
 	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="functie()">Add Product</button>
@@ -79,10 +88,19 @@ module.exports = {
 
 		return {
 			testname:'',
-			testimg:'',//To delete
-			testprice:'',
+			testCategories:[''],
+			testPrice:'',
 			testCategory:'',
 			testStock:'',
+
+			Categories:[
+				'sexy',
+				'not sexy',
+				'meh',
+				'tzatze mari'
+			],
+			CategoriesToSend:[],
+			CategoriesToShow:[],
 
 			productName:'',
 			productToChange:'',
@@ -90,13 +108,24 @@ module.exports = {
 			product:{
 				id:'',
 				name:'',
-				image:'',	
+				categoryList:[],	
 				price:''
 			}
 		};
 	},
 
 	methods: {
+		addCategory(){
+			this.CategoriesToSend.push(this.testCategory);
+			this.CategoriesToShow.push(this.testCategory);
+		},
+		outWithCategory(category) {
+			var index = this.CategoriesToShow.indexOf(category);
+			if(index > -1) {
+				this.CategoriesToShow.splice(index, 1);
+				this.CategoriesToSend.splice(index, 1);
+			}
+		},
 		async createCategory() {
 			await this.$store.dispatch('category/create', this.testCategory);
 			return new Product;
