@@ -51,7 +51,7 @@
 	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="functie()">Remove Product</button>
 	<form>
 		<h2>Create Category</h2>
-		<input v-model="testCategory" placeholder="Category Name">
+		<input v-model="this.testCategory" placeholder="Category Name">
 	</form>
 	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="createCategory()">Create Category</button>
 </div>
