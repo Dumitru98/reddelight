@@ -29,7 +29,9 @@ module.exports = {
 	actions: {
 		async signup(store, credentials) {
 			try {
-				let response = await Vue.http.post(setup.API + '/users/signup', credentials);
+				let response = await Vue.http.post(setup.API + '/users/signup', {
+					credentials: credentials
+				});
 
 				if (response.data.token) {
 					store.commit('token', response.data.token);
@@ -52,7 +54,9 @@ module.exports = {
 
 		async login(store, credentials) {
 			try {
-				let response = await Vue.http.post(setup.API + '/users/login', credentials);
+				let response = await Vue.http.post(setup.API + '/users/login', {
+					credentials: credentials
+				});
 
 				if (response.data.token) {
 					store.commit('token', response.data.token);
@@ -75,7 +79,9 @@ module.exports = {
 
 		async get(store) {
 			try {
-				let response = await Vue.http.get(setup.API + '/users/get', store.state.token);
+				let response = await Vue.http.get(setup.API + '/users/get', {
+					token: store.state.token
+				});
 
 				if (response.data.err === 0) {
 					store.commit ('user', response.data.user);
@@ -98,7 +104,10 @@ module.exports = {
 
 		async update(store, userInfo) {
 			try {
-				let response = await Vue.http.post(setup.API + '/users/update', userInfo, store.state.token);
+				let response = await Vue.http.post(setup.API + '/users/update', {
+					userInfo: userInfo,
+					token: store.state.token
+				});
 
 				if (response.data.err === 0) {
 					store.commit ('user', response.data.user);
@@ -129,7 +138,9 @@ module.exports = {
 
 		async logout(store, token) {
 			try {
-				let response = await Vue.http.post(setup.API + '/users/logout', token);
+				let response = await Vue.http.post(setup.API + '/users/logout', {
+					token: token
+				});
 
 				if (response.data.err === 0) {
 					store.commit('token', null);
@@ -159,7 +170,9 @@ module.exports = {
 
 		async delete(store, token) {
 			try {
-				let response = await Vue.http.post(setup.API + '/users/delete', token);
+				let response = await Vue.http.post(setup.API + '/users/delete', {
+					token: token
+				});
 
 				if (response.data.err === 0) {
 					store.commit('token', null);

@@ -10,7 +10,7 @@ var Validator = require('validator');
 Vue.use (Validator);
 
 var settings = require ('../modules/settings');
-var product = require ('../modules/products');
+var product = require ('../modules/product');
 
 module.exports = new Vuex.Store ({
 	modules: {

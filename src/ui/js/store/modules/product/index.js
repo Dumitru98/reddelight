@@ -15,12 +15,19 @@ module.exports = {
 	},
 
 	actions: {
-		async create(store, product, categories) {
+		async create(store, product) {
 			try {
-				let response = await Vue.http.post(setup.API + '/products/create', product, categories);
+				var categories = [];
+				let response = await Vue.http.post(setup.API + '/products/create', {
+					product: product,
+					categories: categories
+				});
 
 				if (response.data.err === 0) {
-					let response = await Vue.http.post(setup.API + '/categories/add', product, categories);
+					let response = await Vue.http.post(setup.API + '/categories/add', {
+						product: product,
+						categories: categories
+					});
 
 					if (response.data.err === 0) {
 						return true;
@@ -81,7 +88,9 @@ module.exports = {
 
 		async delete(store, id) {
 			try {
-				let response = await Vue.http.post(setup.API + '/products/delete', id);
+				let response = await Vue.http.post(setup.API + '/products/delete', {
+					id: id
+				});
 
 				if (response.data.err === 0) {
 					return true;

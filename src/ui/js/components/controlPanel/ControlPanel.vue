@@ -52,7 +52,7 @@
 		
 		<input v-model="testprice" placeholder="Price">
 	</form>
-	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="functie()">Add Product</button>
+	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="createProduct()">Add Product</button>
 	<form>
 		<h2>Remove Product</h2>
 		<input v-model="productName" placeholder="Product Name">
@@ -60,7 +60,7 @@
 	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="functie()">Remove Product</button>
 	<form>
 		<h2>Create Category</h2>
-		<input v-model="this.testCategory" placeholder="Category Name">
+		<input v-model="testCategory" placeholder="Category Name">
 	</form>
 	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="createCategory()">Create Category</button>
 </div>
@@ -69,14 +69,14 @@
 <script>
 
 var Loading = require('../Loading.vue');
-class Product {
-	constructor(category, name,stock,price){
-		this.category = category;
-		this.name = name;
-		this.stock = stock;
-		this.price = price;
-	}
-}
+// class Product {
+// 	constructor(category, name,stock,price){
+// 		this.category = category;
+// 		this.name = name;
+// 		this.stock = stock;
+// 		this.price = price;
+// 	}
+// }
 module.exports = {
 	name: 'ControlPanel',
 
@@ -85,32 +85,39 @@ module.exports = {
 	},
 	
 	data() {
-
 		return {
-			testname:'',
-			testCategories:[''],
-			testPrice:'',
-			testCategory:'',
-			testStock:'',
+			testname: '',
+			testCategories: [],
+			testPrice: '',
+			testCategory: '',
+			testStock: '',
 
-			Categories:[
+			Categories: [
 				'sexy',
 				'not sexy',
-				'meh',
+				'meth',
 				'tzatze mari'
 			],
-			CategoriesToSend:[],
-			CategoriesToShow:[],
+			CategoriesToSend: [],
+			CategoriesToShow: [],
 
-			productName:'',
-			productToChange:'',
+			productName: '',
+			productToChange: '',
 			
-			product:{
-				id:'',
-				name:'',
-				categoryList:[],	
-				price:''
-			}
+			product: {
+				name: '',
+				categoryList: [],	
+				price: ''
+			},
+
+			testProduct: {
+				name: 'tanga',
+				stock: 10,
+				categories: ['rosu', 'sexy'],	
+				price: 79.90
+			},
+
+			testCategoriesForProduct: ['rosu', 'sexy']
 		};
 	},
 
@@ -119,6 +126,7 @@ module.exports = {
 			this.CategoriesToSend.push(this.testCategory);
 			this.CategoriesToShow.push(this.testCategory);
 		},
+
 		outWithCategory(category) {
 			var index = this.CategoriesToShow.indexOf(category);
 			if(index > -1) {
@@ -126,11 +134,14 @@ module.exports = {
 				this.CategoriesToSend.splice(index, 1);
 			}
 		},
+
 		async createCategory() {
 			await this.$store.dispatch('category/create', this.testCategory);
-			return new Product;
+		},
+
+		async createProduct() {
+			await this.$store.dispatch('product/create', this.testProduct);
 		}
-		
 	}
 };
 

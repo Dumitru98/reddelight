@@ -12,18 +12,17 @@ publicApp.post('/create', async function(req, res) {
 	try {
 		var name = req.body.name;
 
-		var category = db.category.findByCategoryName(name);
+		var category = await db.category.findByCategoryName(name);
+		console.log(category);
 
 		if (!category) {
-			var products = [];
-
-			await db.category.createCategory(name, products);
+			await db.category.createCategory(name);
 
 			debug('Category created');
 			return res.status(200).send({ err: 0 });
 		} else {
 			debug('Category already exists');
-			return res.status(200).send({ err: 1, message: 'The category ' + req.body.name + ' already exist!' });
+			return res.status(200).send({ err: 1, message: 'The category ' + name + ' already exist!' });
 		}
 	} catch (e) {
 		debug('Server error');
