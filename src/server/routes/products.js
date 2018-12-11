@@ -15,6 +15,7 @@ function createProductId() {
 
 publicApp.post('/create', async function(req, res) {
 	try {
+		console.log('its good');
 		var id = createProductId();
 		var date = new Date();
 		var name = req.body.name;

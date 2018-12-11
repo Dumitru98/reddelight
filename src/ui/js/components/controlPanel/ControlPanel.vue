@@ -1,7 +1,7 @@
 
 <template>
 <div class="container">
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<a class="navbar-brand" href="dashboard.html">Red Delight</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
@@ -36,11 +36,13 @@
 			</ul>
 		</div>
 	</nav>
-	<form>
+	<form class="form-group">
 		<h2>Add Product</h2>
-		<input v-model="testid" placeholder="Id">
-		<input v-model="testname" placeholder="Name">
-		<select v-model="testCategory">
+		<input class="form-control" v-model="testName" placeholder="Name">
+		<input class="form-control" v-model="testPrice" placeholder="Price">
+		<input class="form-control" v-model="testStock" placeholder="Stock">
+		<label for="categoryInput">Category</label>
+		<select v-model="testCategory" id="categoryInput">
 			<option v-for="(item,index) in Categories" :key=index :value="item">{{item}}</option>
 		</select>
 		<ul>
@@ -48,19 +50,17 @@
 				<p>{{category}}<button type="button" @click="outWithCategory(category)">x</button></p>
 			</li>
 		</ul>
-		<button @click="addCategory" class="btn" type="button">Add Category</button>
-		
-		<input v-model="testprice" placeholder="Price">
+		<button @click="addCategory" class="btn btn-inline" type="button">Add Category</button>
 	</form>
-	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="functie()">Add Product</button>
+	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="createProduct()">Add Product</button>
 	<form>
 		<h2>Remove Product</h2>
-		<input v-model="productName" placeholder="Product Name">
+		
 	</form>
-	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="functie()">Remove Product</button>
+	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="removeProduct(this.productName)">Remove Product</button>
 	<form>
 		<h2>Create Category</h2>
-		<input v-model="this.testCategory" placeholder="Category Name">
+		<input v-model="this.testCategoryToAdd" placeholder="Category Name">
 	</form>
 	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="createCategory()">Create Category</button>
 </div>
@@ -87,10 +87,12 @@ module.exports = {
 	data() {
 
 		return {
-			testname:'',
+			testId:0,
+			testName:'',
 			testCategories:[''],
 			testPrice:'',
 			testCategory:'',
+			testCategoryToAdd:'',
 			testStock:'',
 
 			Categories:[
@@ -99,18 +101,13 @@ module.exports = {
 				'meh',
 				'tzatze mari'
 			],
+
 			CategoriesToSend:[],
 			CategoriesToShow:[],
 
 			productName:'',
 			productToChange:'',
-			
-			product:{
-				id:'',
-				name:'',
-				categoryList:[],	
-				price:''
-			}
+
 		};
 	},
 
@@ -129,6 +126,20 @@ module.exports = {
 		async createCategory() {
 			await this.$store.dispatch('category/create', this.testCategory);
 			return new Product;
+		},
+		async createProduct(){
+			await this.$store.dispatch('product/create',{
+				id: this.testid,
+				name:this.testname,
+				price:this.testPrice,
+				stock:this.testStock,
+				categories:this.CategoriesToSend
+			});
+		},
+		async removeProduct(idToDelete){
+			await this.$store.dispatch('product/delete',{
+				id:idToDelete
+			});
 		}
 		
 	}

@@ -1,7 +1,7 @@
 require('bootstrap');
 var Vue = require('vue');
 
-var store = require('./store/category/store.js');
+var store = require('./store/controlpanel/store.js');
 var toast = require ('./vue-toast.js');
 
 Vue.use(toast);
