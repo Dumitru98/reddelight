@@ -15,17 +15,18 @@ module.exports = {
 	},
 
 	actions: {
-		async create(store, product) {
+		async create(store, name, price, stock, categories) {
 			try {
-				var categories = [];
 				let response = await Vue.http.post(setup.API + '/products/create', {
-					product: product,
+					name: name,
+					price: price,
+					stock: stock,
 					categories: categories
 				});
 
 				if (response.data.err === 0) {
 					let response = await Vue.http.post(setup.API + '/categories/add', {
-						product: product,
+						id: response.data.id,
 						categories: categories
 					});
 

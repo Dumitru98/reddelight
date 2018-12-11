@@ -32,22 +32,22 @@ publicApp.post('/create', async function(req, res) {
 
 publicApp.post('/add', async function(req, res) {
 	try {
-		var category = await db.category.findByCategoryName(req.body.name);
+		var product = await db.product.findByProductId(req.body.id);
 
-		if (category) {
-			for (let id of req.body.ids) {
-				await db.product.addCategory(id, name);
-				
-				let product = await db.product.getById(id);
+		if (product) {
+			for (let category of req.body.categories) {
+				var categories = product.categories;
+				categories.push(category);
 
 				var newProduct = {
 					id: product.id,
 					name: product.name,
 					price: product.price,
-					stock: product.stock
+					stock: product.stock,
+					categories: categories
 				};
 
-				await db.category.addProduct(req.body.name, newProduct);
+				await db.category.addProduct(category, newProduct);
 			}
 
 			debug('Product added');

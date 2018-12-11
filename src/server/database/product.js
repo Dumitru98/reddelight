@@ -55,7 +55,7 @@ function createProduct(id, name, price, stock, categories, date) {
 	return product.save();
 }
 
-function getById(id) {
+function findByProductId(id) {
 	return Product.findOne({ id: id });
 }
 
@@ -73,7 +73,7 @@ function deleteProduct(id) {
 
 var product = {
 	createProduct,
-	getById,
+	findByProductId,
 	addCategory,
 	deleteCategory,
 	deleteProduct

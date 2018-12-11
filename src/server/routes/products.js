@@ -25,7 +25,7 @@ publicApp.post('/create', async function(req, res) {
 		await db.product.createProduct(id, name, price, stock, categories, date);
 
 		debug('Product created');
-		return res.status(200).send({ err: 0 });
+		return res.status(200).send({ err: 0, id: id });
 	} catch (e) {
 		debug('Server error');
 		return res.status(400).send({ err: 1, message: 'Server error!\n' + e});
