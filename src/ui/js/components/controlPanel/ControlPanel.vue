@@ -110,7 +110,7 @@ module.exports = {
 		if(state){
 			console.log(state);
 			var categories = Object.keys(categories);
-			for(let category of categories){
+			for(let category of categories) {
 				this.Categories.push(category);
 			}
 			this.Categories.sort();
@@ -137,10 +137,10 @@ module.exports = {
 
 		async createProduct(){
 			await this.$store.dispatch('product/create', {
-				name:this.testName, 
-				price:this.testPrice, 
-				stock:this.testStock, 
-				category:this.testCategories
+				name: this.testName, 
+				price: this.testPrice, 
+				stock: this.testStock, 
+				categories: this.testCategories
 			});
 		},
 		
