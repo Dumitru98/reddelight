@@ -76,6 +76,7 @@ publicApp.post('/get', async function(req, res) {
 			}
 		} else {
 			var category = await db.category.findByCategoryName(req.body.name);
+			
 			if (category) {
 				debug('Products got successful');
 				return res.status(200).send({ err: 0, products: category.products });
