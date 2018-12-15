@@ -105,13 +105,12 @@ module.exports = {
 		};
 	},
 	async created(){
-		let state = await this.$store.dispatch('category/get',this.name);
+		let categories = await this.$store.dispatch('category/get',this.name);
 		console.log('NOTOKAY');
-		if(state){
+		if(categories){
 			console.log('OK');
-			var categories = Object.keys(categories);
 			for(let category of categories){
-				this.Categories.push(category);
+				this.Categories.push(category.name);
 			}
 			this.Categories.sort();
 		}
@@ -136,12 +135,12 @@ module.exports = {
 		},
 
 		async createProduct(){
-			await this.$store.dispatch('product/create', {
-				name:this.testName, 
-				price:this.testPrice, 
-				stock:this.testStock, 
-				category:this.testCategories
-			});
+			await this.$store.dispatch('product/create',
+				this.testName, 
+				this.testPrice, 
+				this.testStock, 
+				this.testCategories
+			);
 		},
 		
 		async removeProduct(idToDelete){
