@@ -64,14 +64,26 @@ publicApp.post('/add', async function(req, res) {
 
 publicApp.get('/get', async function(req, res) {
 	try {
-		var category = await db.category.findByCategoryName(req.name);
+		if (req.name === '') {
+			var categories = await db.category.getAllCategories();
 
-		if (category) {
-			debug('Products got successful');
-			return res.status(200).send({ err: 0, products: category.products });
+			if (categories) {
+				debug('All categories got successful');
+				return res.status(200).send({ err: 0, categories: categories });
+			} else {
+				debug('Could\'t get all the categories');
+				return res.status(200).send({ err: 1, message: 'Could\'t get all the categories!' });
+			}
 		} else {
-			debug('Category doesn\'t exist');
-			return res.status(200).send({ err: 1, message: 'The category ' + req.name + ' doesn\'t exist!' });
+			var category = await db.category.findByCategoryName(req.name);
+
+			if (category) {
+				debug('Products got successful');
+				return res.status(200).send({ err: 0, products: category.products });
+			} else {
+				debug('Category doesn\'t exist');
+				return res.status(200).send({ err: 1, message: 'The category ' + req.name + ' doesn\'t exist!' });
+			}
 		}
 	} catch(e) {
 		debug('Server error');
