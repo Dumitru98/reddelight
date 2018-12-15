@@ -93,13 +93,9 @@ module.exports = {
 			testCategory:'',
 			testCategoryToAdd:'',
 			testStock:'',
+			name:'sexy',
 
-			Categories: [
-				'sexy',
-				'not sexy',
-				'meth',
-				'tzatze mari'
-			],
+			Categories: [],
 
 			CategoriesToSend:[],
 			CategoriesToShow:[],
@@ -107,6 +103,18 @@ module.exports = {
 			productName:'',
 			productToChange:'',
 		};
+	},
+	async created(){
+		let state = await this.$store.dispatch('category/get',this.name);
+		console.log('NOTOKAY');
+		if(state){
+			console.log('OK');
+			var categories = Object.keys(categories);
+			for(let category of categories){
+				this.Categories.push(category);
+			}
+			this.Categories.sort();
+		}
 	},
 
 	methods: {
@@ -128,7 +136,12 @@ module.exports = {
 		},
 
 		async createProduct(){
-			await this.$store.dispatch('product/create', this.testName, this.testPrice, this.testStock, this.testCategories);
+			await this.$store.dispatch('product/create', {
+				name:this.testName, 
+				price:this.testPrice, 
+				stock:this.testStock, 
+				category:this.testCategories
+			});
 		},
 		
 		async removeProduct(idToDelete){

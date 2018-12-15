@@ -30,10 +30,11 @@ module.exports = {
 
 		async get(store, name) {
 			try {
+				console.log(name);
 				let response = await Vue.http.get(setup.API + '/categories/get', {
 					name: name
 				});
-
+				console.log(response.data);
 				if (response.data.err === 0) {
 					return response.data.products;
 				} else {
