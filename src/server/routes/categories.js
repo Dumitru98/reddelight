@@ -64,7 +64,8 @@ publicApp.post('/add', async function(req, res) {
 
 publicApp.post('/get', async function(req, res) {
 	try {
-		if (req.body.name === '') {
+		console.log(req.body.name);
+		if (req.body.name == '') {
 			var categories = await db.category.getAllCategories();
 
 			if (categories) {

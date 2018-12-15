@@ -53,6 +53,7 @@ module.exports = {
 
 		async all() {
 			try {
+				console.log('all');
 				let response = await Vue.http.post(setup.API + '/categories/get', {
 					name: ''
 				});
