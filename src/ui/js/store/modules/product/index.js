@@ -58,7 +58,7 @@ module.exports = {
 
 		async get(store) {
 			try {
-				let response = await Vue.http.get(setup.API + '/products/get');
+				let response = await Vue.http.post(setup.API + '/products/get');
 
 				if (response.data.err === 0) {
 					let products = [];

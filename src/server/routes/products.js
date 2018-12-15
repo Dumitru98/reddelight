@@ -32,7 +32,7 @@ publicApp.post('/create', async function(req, res) {
 	}
 });
 
-publicApp.get('/get', async function(req, res) {
+publicApp.post('/get', async function(req, res) {
 	try {
 		var categories = await db.category.listCategories();
 

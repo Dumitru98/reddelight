@@ -30,13 +30,35 @@ module.exports = {
 
 		async get(store, name) {
 			try {
-				console.log(name);
-				let response = await Vue.http.get(setup.API + '/categories/get', {
+				let response = await Vue.http.post(setup.API + '/categories/get', {
 					name: name
 				});
-				console.log(response.data);
+
 				if (response.data.err === 0) {
 					return response.data.products;
+				} else {
+					Vue.toast.customToast({
+						title: 'Load products for category: Fail',
+						message: response.data.message,
+						type: 'warning'
+					});
+
+					return null;
+				}
+			} catch(error) {
+				Vue.toast.serverErrorToast(error);
+				return null;
+			}
+		},
+
+		async all() {
+			try {
+				let response = await Vue.http.post(setup.API + '/categories/get', {
+					name: ''
+				});
+
+				if (response.data.err === 0) {
+					return response.data.categories;
 				} else {
 					Vue.toast.customToast({
 						title: 'Load products for category: Fail',

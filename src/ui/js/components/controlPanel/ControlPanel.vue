@@ -105,10 +105,10 @@ module.exports = {
 		};
 	},
 	async created(){
-		let state = await this.$store.dispatch('category/get',this.name);
+		let state = await this.$store.dispatch('category/get', this.name);
 		console.log('NOTOKAY');
 		if(state){
-			console.log('OK');
+			console.log(state);
 			var categories = Object.keys(categories);
 			for(let category of categories){
 				this.Categories.push(category);

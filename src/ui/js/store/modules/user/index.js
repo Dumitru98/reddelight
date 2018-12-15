@@ -79,7 +79,7 @@ module.exports = {
 
 		async get(store) {
 			try {
-				let response = await Vue.http.get(setup.API + '/users/get', {
+				let response = await Vue.http.post(setup.API + '/users/get', {
 					token: store.state.token
 				});
 

@@ -62,8 +62,7 @@ publicApp.post('/add', async function(req, res) {
 	}
 });
 
-publicApp.get('/get', async function(req, res) {
-	console.log(req.name);
+publicApp.post('/get', async function(req, res) {
 	try {
 		if (req.body.name === '') {
 			var categories = await db.category.getAllCategories();

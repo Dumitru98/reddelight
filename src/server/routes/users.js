@@ -78,9 +78,9 @@ publicApp.post('/login', async function(req, res) {
 	}
 });
 
-privateApp.get('/get', async function (req, res) {
+privateApp.post('/get', async function (req, res) {
 	try {
-		let user = await db.user.findByToken(req.token);
+		let user = await db.user.findByToken(req.body.token);
 
 		if (user) {
 			debug('Got user successful');
