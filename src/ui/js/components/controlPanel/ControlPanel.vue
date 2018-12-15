@@ -110,13 +110,8 @@ module.exports = {
 		if(state){
 			console.log(state);
 			var categories = Object.keys(categories);
-<<<<<<< HEAD
-			for(let category of categories){
-				this.Categories.push(category.name);
-=======
 			for(let category of categories) {
 				this.Categories.push(category);
->>>>>>> 11755a329f9bdbde0c61cf9cbe9d6da29fd1e838
 			}
 			this.Categories.sort();
 		}
@@ -141,21 +136,12 @@ module.exports = {
 		},
 
 		async createProduct(){
-<<<<<<< HEAD
-			await this.$store.dispatch('product/create',
-				this.testName, 
-				this.testPrice, 
-				this.testStock, 
-				this.testCategories
-			);
-=======
 			await this.$store.dispatch('product/create', {
 				name: this.testName, 
 				price: this.testPrice, 
 				stock: this.testStock, 
 				categories: this.testCategories
 			});
->>>>>>> 11755a329f9bdbde0c61cf9cbe9d6da29fd1e838
 		},
 		
 		async removeProduct(idToDelete){

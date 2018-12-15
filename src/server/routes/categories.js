@@ -35,16 +35,13 @@ publicApp.post('/add', async function(req, res) {
 		var product = await db.product.findByProductId(req.body.id);
 
 		if (product) {
+			console.log(req.body.categories);
 			for (let category of req.body.categories) {
-				var categories = product.categories;
-				categories.push(category);
-
 				var newProduct = {
 					id: product.id,
 					name: product.name,
 					price: product.price,
 					stock: product.stock,
-					categories: categories
 				};
 
 				await db.category.addProduct(category, newProduct);

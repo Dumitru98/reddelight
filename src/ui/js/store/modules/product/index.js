@@ -20,12 +20,12 @@ module.exports = {
 				let response = await Vue.http.post(setup.API + '/products/create', product);
 
 				if (response.data.err === 0) {
-					let response = await Vue.http.post(setup.API + '/categories/add', {
+					let newResponse = await Vue.http.post(setup.API + '/categories/add', {
 						id: response.data.id,
 						categories: product.categories
 					});
 
-					if (response.data.err === 0) {
+					if (newResponse.data.err === 0) {
 						return true;
 					} else {
 						Vue.toast.customToast({
