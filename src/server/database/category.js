@@ -51,6 +51,10 @@ function getProductsFromCategory(name) {
 	return Category.findOne({ name: name });
 }
 
+function getAllCategories() {
+	return Category.find();
+}
+
 function deleteProduct(name, id) {
 	return Category.updateOne({ name: name }, { $pull: { id: id } });
 }
@@ -65,6 +69,7 @@ var category = {
 	findByCategoryName,
 	addProduct,
 	getProductsFromCategory,
+	getAllCategories,
 	deleteProduct,
 	deleteCategory
 };

@@ -93,7 +93,7 @@ module.exports = {
 			testCategory:'',
 			testCategoryToAdd:'',
 			testStock:'',
-			name:'sexy',
+			name:'',
 
 			Categories: [],
 
@@ -105,10 +105,11 @@ module.exports = {
 		};
 	},
 	async created(){
-		let categories = await this.$store.dispatch('category/get',this.name);
+		let state = await this.$store.dispatch('category/all');
 		console.log('NOTOKAY');
-		if(categories){
-			console.log('OK');
+		if(state){
+			console.log(state);
+			var categories = Object.keys(categories);
 			for(let category of categories){
 				this.Categories.push(category.name);
 			}

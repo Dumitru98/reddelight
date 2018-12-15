@@ -62,10 +62,10 @@ publicApp.post('/add', async function(req, res) {
 	}
 });
 
-publicApp.get('/get', async function(req, res) {
-	console.log(req);
+publicApp.post('/get', async function(req, res) {
 	try {
-		if (req.name === '') {
+		console.log(req.body.name);
+		if (req.body.name == '') {
 			var categories = await db.category.getAllCategories();
 
 			if (categories) {
@@ -76,13 +76,13 @@ publicApp.get('/get', async function(req, res) {
 				return res.status(200).send({ err: 1, message: 'Could\'t get all the categories!' });
 			}
 		} else {
-			var category = await db.category.findByCategoryName(req.name);
+			var category = await db.category.findByCategoryName(req.body.name);
 			if (category) {
 				debug('Products got successful');
 				return res.status(200).send({ err: 0, products: category.products });
 			} else {
 				debug('Category doesn\'t exist');
-				return res.status(200).send({ err: 1, message: 'The category ' + req.name + ' doesn\'t exist!' });
+				return res.status(200).send({ err: 1, message: 'The category ' + req.body.name + ' doesn\'t exist!' });
 			}
 		}
 	} catch(e) {
