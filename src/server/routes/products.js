@@ -34,10 +34,42 @@ publicApp.post('/create', async function(req, res) {
 
 publicApp.post('/get', async function(req, res) {
 	try {
-		var categories = await db.category.listCategories();
+		var product = await db.product.findByProductId(req.body.id);
 
-		debug('Products got successful');
-		return res.status(200).send({ err: 0, categories: categories });
+		if (product) {
+			debug('Product got successful');
+			return res.status(200).send({ err: 0, product: product });
+		} else {
+			debug('Couldn\'t get the product');
+			return res.status(200).send({ err: 1, message: 'Couldn\'t get the product!' });
+		}
+	} catch(e) {
+		debug('Server error');
+		return res.status(400).send({ err: 1, message: 'Server error!\n' + e });
+	}
+});
+
+publicApp.post('/30', async function(req, res) {
+	try {
+		var products = await db.product.listProducts();
+
+		if (products) {
+			var productsToSend = [];
+			var i = 1;
+
+			for (let product of products) {
+				if (i >= req.body.startIndex && i <= req.body.startIndex + 30) {
+					productsToSend.add(product);
+				}
+				i++;
+			}
+
+			debug('Products got successful');
+			return res.status(200).send({ err: 0, products: productsToSend });
+		} else {
+			debug('Could\'t get the products');
+			return res.status(200).send({ err: 1, message: 'Could\'t get the products!' });
+		}
 	} catch(e) {
 		debug('Server error');
 		return res.status(400).send({ err: 1, message: 'Server error!\n' + e });

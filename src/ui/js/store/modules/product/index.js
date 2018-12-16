@@ -51,21 +51,36 @@ module.exports = {
 			}
 		},
 
-		async get(store) {
+		async get(store, id) {
 			try {
-				let response = await Vue.http.post(setup.API + '/products/get');
+				let response = await Vue.http.post(setup.API + '/products/get', {
+					id: id
+				});
 
 				if (response.data.err === 0) {
-					let products = [];
+					return true;
+				} else {
+					Vue.toast.customToast({
+						title: 'Get the product: Fail',
+						message: response.data.message,
+						type: 'warning'
+					});
 
-					for (let category of response.data.categories) {
-						for (let product of category) {
-							products.add(product);
-						}
-					}
+					return false;
+				}
+			} catch(error) {
+				Vue.toast.serverErrorToast(error);
+				return false;
+			}
+		},
 
-					store.commit('products', products);
+		async get30(store, index) {
+			try {
+				let response = await Vue.http.post(setup.API + '/products/30', {
+					index: index
+				});
 
+				if (response.data.err === 0) {
 					return true;
 				} else {
 					Vue.toast.customToast({

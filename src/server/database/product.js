@@ -59,6 +59,10 @@ function findByProductId(id) {
 	return Product.findOne({ id: id });
 }
 
+function listProducts() {
+	return Product.find();
+}
+
 function addCategory(id, name) {
 	return Product.updateOne({ id: id }, { $addToSet: { categories: name } });
 }
@@ -74,6 +78,7 @@ function deleteProduct(id) {
 var product = {
 	createProduct,
 	findByProductId,
+	listProducts,
 	addCategory,
 	deleteCategory,
 	deleteProduct

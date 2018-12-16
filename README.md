@@ -72,3 +72,13 @@ Dashboard
 		-createCategory(name) => bool								v
 		-deleteCategory(name) => bool								v
 		-addProductsToCategory(name,[productIds]) => bool			v
+
+		Produs:
+		Culaore
+		Marime
+		Accesorii
+		chiloti
+		sutiene
+		costume
+		body
+		set-uri 

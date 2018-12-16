@@ -57,7 +57,7 @@
 		<h2>Remove Product</h2>
 		
 	</form>
-	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="removeProduct(this.productName)">Remove Product</button>
+	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="removeProduct(this.id)">Remove Product</button>
 	<form>
 		<h2>Create Category</h2>
 		<input v-model="testCategory" placeholder="Category Name">
@@ -109,9 +109,8 @@ module.exports = {
 		console.log('NOTOKAY');
 		if(state){
 			console.log(state);
-			var categories = Object.keys(categories);
-			for(let category of categories) {
-				this.Categories.push(category);
+			for(let category of state) {
+				this.Categories.push(category.name);
 			}
 			this.Categories.sort();
 		}
@@ -136,11 +135,11 @@ module.exports = {
 		},
 
 		async createProduct(){
-			await this.$store.dispatch('product/create', {
-				name: this.testName, 
-				price: this.testPrice, 
-				stock: this.testStock, 
-				categories: this.testCategories
+			await this.$store.dispatch('product/create',{
+				name:this.testName, 
+				price:this.testPrice, 
+				stock:this.testStock, 
+				categories:this.CategoriesToSend
 			});
 		},
 		
