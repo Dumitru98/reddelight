@@ -40,11 +40,15 @@
     </form>
   </div>
 </nav>
+<select v-model="categoryToken">
+	<option :value="''"></option>
+	<option v-for="(item,index) in Categories" :key=index :value="item">{{item}}</option>
+</select>
 <div class="row">
 <div class="col-md-3" v-for="(item,index) in filteredItems" :key="index">
   <div class="card">
     <div :id="'car'+item.id" class="carousel slide" data-ride="carousel">
-		<div class="carousel-inner">
+		<div class="carousel-inner" >
 			<div class="carousel-item active">
 			<img class="d-block w-100" src="../../../img/generic-blue-ridge-mountains-2528x1422.jpg" alt="First slide">
 			</div>
@@ -65,7 +69,7 @@
 		</a>
 	</div>
     <div class="card-body">
-      <h4 class="card-title">{{ item.name }}</h4>
+      <h4 class="card-title" @click="productPage(item.id)">{{ item.name }}</h4>
       <div class="card-text">${{ item.price / 100 }}</div>
       <div class="row justify-content-end">
         <button class="btn btn-primary">Add to cart</button>
@@ -96,8 +100,10 @@ module.exports = {
 	},
 	
 	data() {
+		var urlParams = new URLSearchParams(window.location.search);
 		return {
 			searchToken:'',
+			categoryToken:'',
 			forSale : [
 				new asset('1', 'Loreeeem ipsum', '//placehold.it/200',  '999'),
 				new asset('2', 'Loremmmm', '//placehold.it/200',  '1499'),
@@ -105,15 +111,57 @@ module.exports = {
 				new asset('4', 'Loremipsum', '//placehold.it/200',  '299'),
 				new asset('5', 'LoremIpsum', '//placehold.it/200',  '699')
 			],
+			next: urlParams.get('id'),
 			noSearch:true,
+			Categories:[],
 		};
+	},
+	async created(){
+		let state = await this.$store.dispatch('category/all');
+		console.log('NOTOKAY');
+		if(state){
+			console.log(state);
+			for(let category of state) {
+				this.Categories.push(category.name);
+			}
+			this.Categories.sort();
+		}
 	},
 	computed: {
 		filteredItems() {
 			return this.forSale.filter( item => {
-				return item.name.toLowerCase().includes(this.searchToken.toLowerCase());
+				return item.name.toLowerCase().includes(this.searchToken.toLowerCase() || this.categoryToken.toLowerCase());
 			});
 		},
+		filteredCategories() {
+			return this.forSale.filter( item => {
+				for(let category of item.categories){
+					if(category.toLowerCase().includes(this.categoryToken.toLowerCase())){
+						return category.toLowerCase().includes(this.categoryToken.toLowerCase());
+					}
+				}
+			});
+		},
+	},
+	methods: {
+		async productPage(id){
+			console.log('OKAYISH');
+			console.log(id);
+			this.next=id;
+			await this.$store.dispatch('settings/redirect',{
+				address:'PRODUCTPAGE',
+				id:id,
+			});
+
+		}
+		/*async getProducts(){
+			let state = await this.$store.dispatch('products/get');
+			for(let category of state){
+				for(let item of state){
+					
+				}
+			}
+		}*/
 	}
 };
 

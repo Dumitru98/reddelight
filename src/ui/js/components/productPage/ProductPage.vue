@@ -35,20 +35,24 @@
 			</ul>
 		</div>
 	</nav>
+	<p>penis</p>
 	</div>
 </template>
 <script>
-// var Vue = require('vue');
 var Loading = require('../Loading.vue');
+var urlParams = new URLSearchParams(window.location.search);
 module.exports = {
 	name: 'Shop',
+	created(){
+		this.id = urlParams.get('id');
 
+	},
 	components: {
 		Loading
 	},
 	data(){
 		return {
-
+			id: urlParams.get('id'),
 		};
 	}
 };
