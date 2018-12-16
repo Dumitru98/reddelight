@@ -77,11 +77,11 @@ module.exports = {
 		async get30(store, index) {
 			try {
 				let response = await Vue.http.post(setup.API + '/products/30', {
-					index: index
+					startIndex: index
 				});
 
 				if (response.data.err === 0) {
-					return true;
+					return response;
 				} else {
 					Vue.toast.customToast({
 						title: 'Get the products: Fail',

@@ -53,6 +53,7 @@
 		<button @click="addCategory" class="btn btn-inline" type="button">Add Category</button>
 	</form>
 	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="createProduct()">Add Product</button>
+
 	<form>
 		<h2>Remove Product</h2>
 		
@@ -69,14 +70,18 @@
 <script>
 
 var Loading = require('../Loading.vue');
-// class Product {
-// 	constructor(category, name,stock,price){
-// 		this.category = category;
-// 		this.name = name;
-// 		this.stock = stock;
-// 		this.price = price;
-// 	}
-// }
+/*class produs {
+	constructor (id,name,image,price,stock,marime,culori,tip){
+		this.id = id;
+		this.name = name;
+		this.image = image;
+		this.price = price;
+		this.stock = stock;
+		this.marime = marime;
+		this.culori = culori;
+		this.tip = tip;
+	}
+}*/
 module.exports = {
 	name: 'ControlPanel',
 

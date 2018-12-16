@@ -35,8 +35,7 @@
 			</ul>
 		</div>
 	</nav>
-	<p>penis</p>
-	<div class="col-md-3" >
+	<div class="col-md" >
   <div class="card">
     <div :id="'car'+product.id" class="carousel slide" data-ride="carousel">
 		<div class="carousel-inner" >
@@ -61,7 +60,10 @@
 	</div>
     <div class="card-body">
       <h4 class="card-title">{{ product.name }}</h4>
-      <div class="card-text">${{ product.price / 100 }}</div>
+		<div class="card-text">Marime</div>
+		<div class="card-text">Culoare</div>
+		<div class="card-text">Descriere</div>
+      <div class="card-text">{{ product.price / 100 }} lei</div>
       <div class="row justify-content-end">
         <button class="btn btn-primary">Add to cart</button>
       </div>
@@ -81,6 +83,18 @@ class asset {
 		this.price = price;
 	}
 }
+/*class produs {
+	constructor (id,name,image,price,stock,marime,culori,tip){
+		this.id = id;
+		this.name = name;
+		this.image = image;
+		this.price = price;
+		this.stock = stock;
+		this.marime = marime;
+		this.culori = culori;
+		this.tip = tip;
+	}
+}*/
 module.exports = {
 	name: 'Shop',
 	created(){
