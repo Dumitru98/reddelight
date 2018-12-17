@@ -76,7 +76,7 @@ module.exports = {
 
 		async get30(store, index) {
 			try {
-				let response = await Vue.http.post(setup.API + '/products/30', {
+				let response = await Vue.http.post(setup.API + '/products/page', {
 					startIndex: index
 				});
 

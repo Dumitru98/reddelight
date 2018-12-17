@@ -167,7 +167,7 @@ module.exports = {
 
 		},
 		async getProducts(){
-			let state = await this.$store.dispatch('product/get30',0);
+			let state = await this.$store.dispatch('product/get30', 1);
 			if(state){
 				console.log(state);	
 			}
