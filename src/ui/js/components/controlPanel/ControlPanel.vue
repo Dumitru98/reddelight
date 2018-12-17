@@ -135,10 +135,10 @@ module.exports = {
 			testId:0,
 			testName:'',
 			testCategories:[''],
-			testPrice:'',
+			testPrice:0,
 			testCategory:'',
 			testCategoryToAdd:'',
-			testStock:'',
+			testStock:0,
 			name:'',
 
 			Categories: [],

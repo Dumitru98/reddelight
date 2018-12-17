@@ -79,19 +79,17 @@ publicApp.post('/page', async function(req, res) {
 });
 
 publicApp.post('/delete', async function(req, res) {
-	console.log(req.body);
 	try {
-		var product = await db.product.findById(req.body.id);
+		var product = await db.product.findByProductId(req.body.id);
 
 		if (product) {
 			await db.product.deleteProduct(req.body.id);
 
-			var categories = await db.category.listCategories();
+			var categories = product.categories;
 
 			for (let category of categories) {
-				await db.category.deleteProduct(category.name, req.body.id);
+				await db.category.deleteProduct(category, req.body.id);
 			}
-
 			debug('Product deleted successful');
 			return res.status(200).send({ err: 0 });
 		} else {

@@ -56,7 +56,7 @@ function getAllCategories() {
 }
 
 function deleteProduct(name, id) {
-	return Category.updateOne({ name: name }, { $pull: { id: id } });
+	return Category.updateOne({ name: name }, { $pull: { products: { id: id } } });
 }
 
 function deleteCategory(name) {

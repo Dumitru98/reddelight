@@ -136,6 +136,29 @@ module.exports = {
 			}
 		},
 
+		async makeCommand(store, command) {
+			try {
+				let response = await Vue.http.post(setup.API + '/users/makeCommand', {
+					command: command
+				});
+
+				if (response.data.err === 0) {
+					return true;
+				} else {
+					Vue.toast.customToast({
+						title: 'Sending Command: Fail',
+						message: response.data.message,
+						type: 'warning'
+					});
+
+					return false;
+				}
+			} catch (error) {
+				Vue.toast.serverErrorToast(error);
+				return false;
+			}
+		},
+
 		async logout(store, token) {
 			try {
 				let response = await Vue.http.post(setup.API + '/users/logout', {

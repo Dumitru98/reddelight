@@ -4,6 +4,7 @@ var express = require('express');
 var debug = require('debug')('reddelight:user-routes');
 var uuid = require('uuid');
 var db = require('../database/database.js');
+var nodemailer = require('nodemailer');
 
 var publicApp = express.Router();
 var privateApp = express.Router();
@@ -108,6 +109,69 @@ privateApp.post('/update', async function (req, res) {
 			return res. status(200).send({ err: 1, message: 'Couldn\t update the user!' });
 		}
 	} catch (e) {
+		debug('Server error');
+		return res.status(400).send({ err: 1, message: 'Server error!\n' + e });
+	}
+});
+
+publicApp.post('/makeCommand', function(req, res) {
+	try {
+		let command = req.body.command;
+		
+		var transporter = nodemailer.createTransport({
+			service: 'gmail',
+			auth: {
+				user: 'andyalpha98@gmail.com',
+				pass: 'Alexandru.98'
+			}
+		});
+
+		var productsText = '';
+		var productsPrice = 0; //De adaugat cost livrare
+		for (let product of command.products) {
+			productsText += '\n\nNume: ' + product.name;
+			productsText += '\nId: ' + product.id;
+			productsText += '\nPret: ' + product.price + ' lei';
+			productsText += '\nCantitate: ' + product.quantity;
+			productsText += '\nCuloare: ';
+			productsText += '\nMarime: ';
+			productsPrice += product.price * product.quantity;
+		}
+
+		var mailOptions = {
+			from: 'andyalpha98@gmail.com',
+			to: 'dumitru.alexandru.1998@gmail.com',
+			subject: 'Reddelight test',
+			text:
+				'\tDate comandă nouă nr. ' + '\n\n' + //De creat un numar de comanda
+				'\tDatele client:\n' +
+
+				'\nNumărul comenzii: ' +
+				'\nData comenzii: ' + Date.now() +
+				'\nNume: ' + command.firstName + ' ' + command.lastName +
+				'\nEmail: ' + command.email +
+				'\nNumăr de contact: ' + command.phone +
+				'\nAdresă de domiciliu: ' + command.state + ' ' + command.city + ' ' + command.address +
+				'\nAdresă de livrare: ' + command.state + ' ' + command.city + ' ' + command.address +
+				'\nModalitate de livrare: ' +
+				'\nMetodă de plată: ' +
+				
+				'\n\n\tRezumant comandă:\n' +
+				productsText +
+				'\n\nCost livrare: ' +
+				'\nPreț final: ' + productsPrice //To add delivery cost
+		};
+
+		transporter.sendMail(mailOptions, function(error, info){
+			if (error) {
+				debug('Command not sent\n' + error);
+				return res.status(200).send({ err: 1, message: 'Couldn\'t process your command!' + error });
+			} else {
+				debug('Command sent successful\n' + info.response);
+				return res.status(200).send({ err: 0 });
+			}
+		});
+	} catch(e) {
 		debug('Server error');
 		return res.status(400).send({ err: 1, message: 'Server error!\n' + e });
 	}

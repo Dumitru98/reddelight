@@ -32,27 +32,19 @@ publicApp.post('/create', async function(req, res) {
 
 publicApp.post('/add', async function(req, res) {
 	try {
-		var product = await db.product.findByProductId(req.body.id);
+		for (let category of req.body.categories) {
+			var newProduct = {
+				id: req.body.id,
+				name: req.body.name,
+				price: req.body.price,
+				stock: req.body.stock
+			};
 
-		if (product) {
-			console.log(req.body.categories);
-			for (let category of req.body.categories) {
-				var newProduct = {
-					id: product.id,
-					name: product.name,
-					price: product.price,
-					stock: product.stock,
-				};
-
-				await db.category.addProduct(category, newProduct);
-			}
-
-			debug('Product added');
-			return res.status(200).send({ err: 0 });
-		} else {
-			debug('Category doesn\'t exist');
-			return res.status(200).send({ err: 1, message: 'The category ' + req.body.name + ' doesn\'t exist!' });
+			await db.category.addProduct(category, newProduct);
 		}
+
+		debug('Product added');
+		return res.status(200).send({ err: 0 });
 	} catch(e) {
 		debug('Server error');
 		return res.status(400).send({ err: 1, message: 'Server error\n' + e });

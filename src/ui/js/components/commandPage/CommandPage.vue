@@ -81,7 +81,7 @@
 		<input placeholder="Oras">
 		<input placeholder="Adresa">
 	</form>
-	<button class="btn btn-primary">Comanda</button>
+	<button class="btn btn-primary" @click="makeCommand">Comanda</button>
 </div>
 </template>
 
@@ -103,15 +103,52 @@ module.exports = {
 			shoppingCart:[{
 				id:'',
 				name:'',
-				price:'',
-				image:'',
-			}]
+				price:''
+			}],
 			
+			firstName: 'Dumitru',
+			lastName: 'Calin',
+			email: 'dumitru.alexandru.1998@gmail.com',
+			phone: '0723 573 258',
+			state: 'Sector 3',
+			city: 'Bucuresti',
+			address: 'aleea Fizicienilor, nr. 18',
+			products: [
+				{
+					id: '36614d9e-a4e8-4dea-acac-bf92adb006c51521e6e1-7f03-4182-ac53-2df1c9b5e6c9d16b17cf-7bbe-4eba-882c-ade22b7c46b7bf48e10d-7478-4fd9-9f08-a309609f03c0',
+					name: 'many',
+					price: 0.01,
+					quantity: 1
+				}, {
+					id: '1562bdf4-b3be-4528-9396-975dea1ce9a1e6e7f168-da08-4fd3-af9c-4d58a9045b96f99a734e-4c58-44ff-b8c8-b72015a8efec7d92e92d-6367-478a-a031-df5820bac0dd',
+					name: 'name',
+					price: 2.99,
+					quantity: 1000000
+				}, {
+					id: '1b9d9849-8020-4a17-b830-5f1ebc9cd42412d84ed5-ce18-4e44-afe6-024c035afbe99bba158f-209f-49aa-ac2d-ee754b03e4839cbfafb1-252f-458a-935d-424a1a3ae09a',
+					name: 'asdas',
+					price: 123.99,
+					quantity: 10
+				}
+			]
 		};
 	},
 
 	methods: {
-		
+		async makeCommand() {
+			var command = {
+				firstName: this.firstName,
+				lastName: this.lastName,
+				email: this.email,
+				phone: this.phone,
+				state: this.state,
+				city: this.city,
+				address: this.address,
+				products: this.products
+			};
+
+			await this.$store.dispatch('user/makeCommand', command);
+		}
 	}
 };
 
