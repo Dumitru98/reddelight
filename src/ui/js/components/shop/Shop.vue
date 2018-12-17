@@ -70,7 +70,7 @@
 	</div>
     <div class="card-body">
       <h4 class="card-title" @click="productPage(item.id)">{{ item.name }}</h4>
-      <div class="card-text">${{ item.price / 100 }}</div>
+      <div class="card-text" @click="getProducts()">${{ item.price / 100 }}</div>
       <div class="row justify-content-end">
         <button class="btn btn-primary">Add to cart</button>
       </div>
@@ -92,6 +92,18 @@ class asset {
 		this.price = price;
 	}
 }
+/*class produs {
+	constructor (id,name,image,price,stock,marime,culori,tip){
+		this.id = id;
+		this.name = name;
+		this.image = image;
+		this.price = price;
+		this.stock = stock;
+		this.marime = marime;
+		this.culori = culori;
+		this.tip = tip;
+	}
+}*/
 module.exports = {
 	name: 'Shop',
 
@@ -153,15 +165,13 @@ module.exports = {
 				id:id,
 			});
 
-		}
-		/*async getProducts(){
-			let state = await this.$store.dispatch('products/get');
-			for(let category of state){
-				for(let item of state){
-					
-				}
+		},
+		async getProducts(){
+			let state = await this.$store.dispatch('product/get30',0);
+			if(state){
+				console.log(state);	
 			}
-		}*/
+		}
 	}
 };
 

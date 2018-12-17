@@ -52,18 +52,17 @@ publicApp.post('/get', async function(req, res) {
 publicApp.post('30', async function(req, res) {
 	try {
 		var products = await db.product.listProducts();
-
 		if (products) {
+			console.log(req.body);
 			var productsToSend = [];
 			var i = 1;
-
 			for (let product of products) {
 				if (i >= req.body.startIndex && i <= req.body.startIndex + 30) {
 					productsToSend.add(product);
 				}
 				i++;
 			}
-
+			console.log(productsToSend);
 			debug('Products got successful');
 			return res.status(200).send({ err: 0, products: productsToSend });
 		} else {
