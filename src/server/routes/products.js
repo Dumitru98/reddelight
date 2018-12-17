@@ -49,7 +49,7 @@ publicApp.post('/get', async function(req, res) {
 	}
 });
 
-publicApp.post('/30', async function(req, res) {
+publicApp.post('30', async function(req, res) {
 	try {
 		var products = await db.product.listProducts();
 
