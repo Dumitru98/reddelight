@@ -79,6 +79,7 @@ publicApp.post('/page', async function(req, res) {
 });
 
 publicApp.post('/delete', async function(req, res) {
+	console.log(req.body);
 	try {
 		var product = await db.product.findById(req.body.id);
 

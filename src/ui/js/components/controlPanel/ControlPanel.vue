@@ -56,7 +56,40 @@
 
 	<form>
 		<h2>Remove Product</h2>
-		
+		<div class="row">
+<div class="col-md-4" v-for="(item,index) in products" :key="index">
+  <div class="card">
+    <div :id="'car'+item.id" class="carousel slide" data-ride="carousel">
+		<div class="carousel-inner" >
+			<div class="carousel-item active">
+			<img class="d-block w-100" src="../../../img/generic-blue-ridge-mountains-2528x1422.jpg" alt="First slide">
+			</div>
+			<div class="carousel-item">
+			<img class="d-block w-100" src="../../../img/josh-kao-genericmountains.jpg" alt="Second slide">
+			</div>
+			<div class="carousel-item">
+			<img class="d-block w-100" src="../../../img/Monasterio_Khor_Virap,_Armenia,_2016-10-01,_DD_25.jpg" alt="Third slide">
+			</div>
+		</div>
+		<a class="carousel-control-prev" :href="'#car'+item.id"  role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="carousel-control-next" :href="'#car'+item.id"  role="button" data-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+	</div>
+    <div class="card-body">
+      <h4 class="card-title" @click="productPage(item.id)">{{ item.name }}</h4>
+      <div class="card-text" @click="getProducts()">${{ item.price / 100 }}</div>
+      <div class="row justify-content-end">
+        <button class="btn btn-primary" @click="removeProduct(item.id)" type="button">Remove</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 	</form>
 	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="removeProduct(this.id)">Remove Product</button>
 	<form>
@@ -82,6 +115,14 @@ var Loading = require('../Loading.vue');
 		this.tip = tip;
 	}
 }*/
+class asset {
+	constructor (id, name, image, price){
+		this.id = id;
+		this.name = name;
+		this.image = image;
+		this.price = price;
+	}
+}
 module.exports = {
 	name: 'ControlPanel',
 
@@ -101,6 +142,7 @@ module.exports = {
 			name:'',
 
 			Categories: [],
+			products: [],
 
 			CategoriesToSend:[],
 			CategoriesToShow:[],
@@ -118,6 +160,10 @@ module.exports = {
 				this.Categories.push(category.name);
 			}
 			this.Categories.sort();
+		}
+		let products = await this.$store.dispatch('product/get30',1);
+		for(let product of products) {
+			this.products.push(new asset(product.id,product.name,'//placehold.id/200',product.price));
 		}
 	},
 

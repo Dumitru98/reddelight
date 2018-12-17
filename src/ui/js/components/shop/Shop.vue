@@ -45,7 +45,7 @@
 	<option v-for="(item,index) in Categories" :key=index :value="item">{{item}}</option>
 </select>
 <div class="row">
-<div class="col-md-3" v-for="(item,index) in filteredItems" :key="index">
+<div class="col-md-4" v-for="(item,index) in filteredItems" :key="index">
   <div class="card">
     <div :id="'car'+item.id" class="carousel slide" data-ride="carousel">
 		<div class="carousel-inner" >
@@ -123,6 +123,7 @@ module.exports = {
 				new asset('4', 'Loremipsum', '//placehold.it/200',  '299'),
 				new asset('5', 'LoremIpsum', '//placehold.it/200',  '699')
 			],
+			products:[],
 			next: urlParams.get('id'),
 			noSearch:true,
 			Categories:[],
@@ -138,10 +139,14 @@ module.exports = {
 			}
 			this.Categories.sort();
 		}
+		let products = await this.$store.dispatch('product/get30',1);
+		for(let product of products) {
+			this.products.push(new asset(product.id,product.name,'//placehold.id/200',product.price));
+		}
 	},
 	computed: {
 		filteredItems() {
-			return this.forSale.filter( item => {
+			return this.products.filter( item => {
 				return item.name.toLowerCase().includes(this.searchToken.toLowerCase() || this.categoryToken.toLowerCase());
 			});
 		},

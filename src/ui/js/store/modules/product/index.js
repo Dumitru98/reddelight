@@ -81,7 +81,7 @@ module.exports = {
 				});
 
 				if (response.data.err === 0) {
-					return response;
+					return response.data.products;
 				} else {
 					Vue.toast.customToast({
 						title: 'Get the products: Fail',
