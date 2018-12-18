@@ -13,7 +13,6 @@ publicApp.post('/create', async function(req, res) {
 		var name = req.body.name;
 
 		var category = await db.category.findByCategoryName(name);
-		console.log(category);
 
 		if (!category) {
 			await db.category.createCategory(name);
@@ -32,15 +31,9 @@ publicApp.post('/create', async function(req, res) {
 
 publicApp.post('/add', async function(req, res) {
 	try {
-		for (let category of req.body.categories) {
-			var newProduct = {
-				id: req.body.id,
-				name: req.body.name,
-				price: req.body.price,
-				stock: req.body.stock
-			};
+		for (let category of req.body.product.categories) {
 
-			await db.category.addProduct(category, newProduct);
+			await db.category.addProduct(category, req.body.product);
 		}
 
 		debug('Product added');
@@ -53,7 +46,6 @@ publicApp.post('/add', async function(req, res) {
 
 publicApp.post('/get', async function(req, res) {
 	try {
-		console.log(req.body.name);
 		if (req.body.name == '') {
 			var categories = await db.category.getAllCategories();
 
