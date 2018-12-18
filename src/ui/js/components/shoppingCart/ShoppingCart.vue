@@ -43,14 +43,14 @@
 </template>
 <script>
 var Loading = require('../Loading.vue');
-/*class asset {
+class asset {
 	constructor (id, name, image, price){
 		this.id = id;
 		this.name = name;
 		this.image = image;
 		this.price = price;
 	}
-}*/
+}
 /*class produs {
 	constructor (id,name,image,price,stock,marime,culori,tip){
 		this.id = id;
@@ -68,8 +68,40 @@ module.exports = {
 	components: {
 		Loading
 	},
-	created(){
-		console.log(this.$store);
+	async created(){
+		var ids = this.$store.getters['settings/ids'];
+		var produs = null;
+		console.log(this.$store.state);
+		for(let id of ids) {
+			var productFound = false;
+
+			var storeProductsFromShop = this.$store.getters['product/products'];
+
+			for (let product of storeProductsFromShop) {
+				if (product.id === id) {
+					console.log(product);
+					productFound = true;
+				}
+			}
+
+			if (!productFound) {
+				var storeProductsFromCategory = this.$store.getters['category/products'];
+
+				for (let product of storeProductsFromCategory) {
+					if (product.id === id) {
+						console.log(product);
+						productFound = true;
+					}
+				}
+
+				if (!productFound) {
+					var product = await this.$store.dispatch('product/get', id);
+					console.log(product);
+				}
+			}
+			produs = new asset(product.id,product.name,'//nothing//',product.price);
+			this.products.push(produs);
+		}
 	},
 	data(){
 		return {

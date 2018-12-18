@@ -193,7 +193,7 @@ module.exports = {
 		},
 		addToCart(index){
 			this.index++;
-			this.$store.commit('settings/id',index);
+			this.$store.dispatch('settings/addId',index);
 			console.log(this.$store.state);
 		}
 	}

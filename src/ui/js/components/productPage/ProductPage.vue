@@ -106,7 +106,7 @@ module.exports = {
 		var productFound = false;
 
 		var storeProductsFromShop = this.$store.getters['product/products'];
-
+		console.log(storeProductsFromShop);
 		for (let product of storeProductsFromShop) {
 			if (product.id === this.id) {
 				console.log(product);
