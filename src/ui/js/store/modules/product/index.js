@@ -21,8 +21,10 @@ module.exports = {
 
 				if (response.data.err === 0) {
 					product.id = response.data.id;
-					console.log(product);
-					let newResponse = await Vue.http.post(setup.API + '/categories/add', product);
+
+					let newResponse = await Vue.http.post(setup.API + '/categories/add', {
+						product: product
+					});
 
 					if (newResponse.data.err === 0) {
 						return true;
@@ -80,6 +82,8 @@ module.exports = {
 				});
 
 				if (response.data.err === 0) {
+					store.commit('products', response.data.products);
+					
 					return response.data.products;
 				} else {
 					Vue.toast.customToast({

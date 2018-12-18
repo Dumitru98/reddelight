@@ -102,8 +102,34 @@ module.exports = {
 	name: 'Shop',
 	async created(){
 		this.id = urlParams.get('id');
-		var product = await this.$store.dispatch('product/get', this.id);
-		console.log(product);
+
+		var productFound = false;
+
+		var storeProductsFromShop = this.$store.getters['product/products'];
+
+		for (let product of storeProductsFromShop) {
+			if (product.id === this.id) {
+				console.log(product);
+				productFound = true;
+			}
+		}
+
+		if (!productFound) {
+			var storeProductsFromCategory = this.$store.getters['category/products'];
+
+			for (let product of storeProductsFromCategory) {
+				if (product.id === this.id) {
+					console.log(product);
+					productFound = true;
+				}
+			}
+
+			if (!productFound) {
+				var product = await this.$store.dispatch('product/get', this.id);
+				console.log(product);
+			}
+		}
+
 		this.product = new asset(product.id, product.name, '//placehold.it/200', product.price);
 	},
 	components: {

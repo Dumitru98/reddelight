@@ -4,6 +4,16 @@ var setup = require('../../setup.js');
 module.exports = {
 	namespaced: true,
 
+	state: {
+		products: null
+	},
+
+	getters: {
+		products(state) {
+			return state.products;
+		}
+	},
+
 	actions: {
 		async create(store, name) {
 			try {
@@ -35,6 +45,8 @@ module.exports = {
 				});
 
 				if (response.data.err === 0) {
+					store.commit('products', response.data.products);
+
 					return response.data.products;
 				} else {
 					Vue.toast.customToast({
@@ -53,7 +65,6 @@ module.exports = {
 
 		async all() {
 			try {
-				console.log('all');
 				let response = await Vue.http.post(setup.API + '/categories/get', {
 					name: ''
 				});
@@ -120,6 +131,12 @@ module.exports = {
 				Vue.toast.serverErrorToast(error);
 				return false;
 			}
+		}
+	},
+
+	mutations: {
+		products(state, value) {
+			state.products = value;
 		}
 	}
 };
