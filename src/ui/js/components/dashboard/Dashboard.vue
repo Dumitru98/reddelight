@@ -24,6 +24,9 @@
 			<li class="nav-item">
 				<a class="nav-link" href="controlPanel.html">Control Panel</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="shoppingCart.html">Cart</a>
+			</li>
 			</ul>
 
 			<ul class="navbar-nav ml-auto">

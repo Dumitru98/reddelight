@@ -14,7 +14,8 @@ module.exports = function(grunt) {
 					'build/ui/js/contact.js': ['src/ui/js/contact.js'],
 					'build/ui/js/commandPage.js': ['src/ui/js/commandPage.js'],
 					'build/ui/js/controlPanel.js': ['src/ui/js/controlPanel.js'],
-					'build/ui/js/productPage.js': ['src/ui/js/productPage.js']
+					'build/ui/js/productPage.js': ['src/ui/js/productPage.js'],
+					'build/ui/js/shoppingCart.js':['src/ui/js/shoppingCart.js']
                 },
                 options: {
                     transform: ['vueify']

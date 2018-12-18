@@ -24,6 +24,9 @@
 		<li class="nav-item">
 		<a class="nav-link" href="controlPanel.html">Control Panel</a>
 		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="shoppingCart.html">Cart</a>
+		</li>
     </ul>
 
 	<ul class="navbar-nav ml-auto">
@@ -44,6 +47,8 @@
 	<option :value="''"></option>
 	<option v-for="(item,index) in Categories" :key=index :value="item">{{item}}</option>
 </select>
+<b-pagination size="sm" align="center" :total-rows="100" v-model="currentPage" :per-page="10" @change="getProducts(currentPage)">
+</b-pagination>
 <div class="row">
 <div class="col-md-4" v-for="(item,index) in filteredItems" :key="index">
   <div class="card">
@@ -127,6 +132,7 @@ module.exports = {
 			next: urlParams.get('id'),
 			noSearch:true,
 			Categories:[],
+			currentPage:1,
 		};
 	},
 	async created(){
@@ -171,10 +177,17 @@ module.exports = {
 			});
 
 		},
-		async getProducts(){
-			let state = await this.$store.dispatch('product/get30', 1);
+		async getProducts(index){
+			console.log(index);
+			if(index!=1){
+				index=index+30;
+			}
+			let state = await this.$store.dispatch('product/get30', index);
 			if(state){
-				console.log(state);	
+				this.products=[];
+				for(let product of state) {
+					this.products.push(new asset(product.id,product.name,'//placehold.id/200',product.price));
+				}	
 			}
 		}
 	}

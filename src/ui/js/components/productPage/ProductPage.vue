@@ -23,6 +23,9 @@
 			<li class="nav-item">
 				<a class="nav-link" href="controlPanel.html">Control Panel</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="shoppingCart.html">Cart</a>
+			</li>
 			</ul>
 
 			<ul class="navbar-nav ml-auto">
@@ -97,19 +100,11 @@ class asset {
 }*/
 module.exports = {
 	name: 'Shop',
-	created(){
+	async created(){
 		this.id = urlParams.get('id');
-		if(this.id=='1'){
-			this.product = new asset('1', 'Loreeeem ipsum', '//placehold.it/200',  '999');
-		} else if(this.id=='2'){
-			this.product = new asset('2', 'Loremmmm', '//placehold.it/200',  '1499');
-		} else if(this.id=='3'){
-			this.product = new asset('3', 'Ipsum', '//placehold.it/200',  '499');
-		} else if(this.id=='4'){
-			this.product = 	new asset('4', 'Loremipsum', '//placehold.it/200',  '299');
-		} else if(this.id=='5'){
-			this.product = 	new asset('5', 'LoremIpsum', '//placehold.it/200',  '699');
-		}
+		var product = await this.$store.dispatch('product/get', this.id);
+		console.log(product);
+		this.product = new asset(product.id, product.name, '//placehold.it/200', product.price);
 	},
 	components: {
 		Loading

@@ -24,6 +24,9 @@
 			<li class="nav-item active">
 				<a class="nav-link" href="controlPanel.html">Control Panel</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="shoppingCart.html">Cart</a>
+			</li>
 			</ul>
 
 			<ul class="navbar-nav ml-auto">
@@ -52,7 +55,7 @@
 		</ul>
 		<button @click="addCategory" class="btn btn-inline" type="button">Add Category</button>
 	</form>
-	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="createProduct()">Add Product</button>
+	<button class="btn btn-outline-success my-2 my-sm-0" type="submit" @click="createProduct()">Add Product</button>
 
 	<form>
 		<h2>Remove Product</h2>
@@ -82,17 +85,14 @@
 	</div>
     <div class="card-body">
       <h4 class="card-title" @click="productPage(item.id)">{{ item.name }}</h4>
-      <div class="card-text" @click="getProducts()">${{ item.price / 100 }}</div>
+      <div class="card-text" @click="getProducts()">{{ item.price / 100 }} Lei</div>
       <div class="row justify-content-end">
-        <button class="btn btn-primary" @click="removeProduct(item.id)" type="button">Remove</button>
+        <button class="btn btn-primary" @click="removeProduct(item.id)" type="submit">Remove</button>
       </div>
     </div>
   </div>
 </div>
 </div>
-	</form>
-	<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="removeProduct(this.id)">Remove Product</button>
-	<form>
 		<h2>Create Category</h2>
 		<input v-model="testCategory" placeholder="Category Name">
 	</form>

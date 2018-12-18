@@ -8,13 +8,13 @@ Vue.mixin({
 	store
 });
 
-var ProductPage = require('./components/productPage/ProductPage.vue');
+var ShoppingCart = require('./components/shoppingCart/ShoppingCart.vue');
 
 new Vue({
-	el: '#productPage',
+	el: '#shoppingCart',
 	data: {},
 	render: function(render) {
-		return render(ProductPage);
+		return render(ShoppingCart);
 	},
 
 });
