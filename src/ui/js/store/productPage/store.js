@@ -11,11 +11,13 @@ Vue.use (Validator);
 
 var settings = require ('../modules/settings');
 var product = require ('../modules/product');
+var category = require ('../modules/category');
 
 module.exports = new Vuex.Store ({
 	modules: {
 		settings,
-		product
+		product,
+		category
 	},
 	strict: process.env.NODE_ENV !== 'production'
 });

@@ -121,6 +121,11 @@ module.exports = {
 				Vue.toast.serverErrorToast(error);
 				return false;
 			}
+		},
+
+		test() {
+			console.log('mamaaaaaaaaaaa');
+			return;
 		}
 	},
 

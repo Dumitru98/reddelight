@@ -140,13 +140,14 @@ module.exports = {
 		let state = await this.$store.dispatch('category/all');
 		console.log('NOTOKAY');
 		if(state){
-			console.log(state);
+			//console.log(state);
 			for(let category of state) {
 				this.Categories.push(category.name);
 			}
 			this.Categories.sort();
 		}
 		let products = await this.$store.dispatch('product/get30',1);
+
 		for(let product of products) {
 			this.products.push(new asset(product.id,product.name,'//placehold.id/200',product.price));
 		}

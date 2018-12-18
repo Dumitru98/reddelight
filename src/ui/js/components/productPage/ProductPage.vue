@@ -99,47 +99,55 @@ class asset {
 	}
 }*/
 module.exports = {
-	name: 'Shop',
-	async created(){
-		this.id = urlParams.get('id');
+	name: 'ProductPage',
 
-		var productFound = false;
-
-		var storeProductsFromShop = this.$store.getters['product/products'];
-		console.log(storeProductsFromShop);
-		for (let product of storeProductsFromShop) {
-			if (product.id === this.id) {
-				console.log(product);
-				productFound = true;
-			}
-		}
-
-		if (!productFound) {
-			var storeProductsFromCategory = this.$store.getters['category/products'];
-
-			for (let product of storeProductsFromCategory) {
-				if (product.id === this.id) {
-					console.log(product);
-					productFound = true;
-				}
-			}
-
-			if (!productFound) {
-				var product = await this.$store.dispatch('product/get', this.id);
-				console.log(product);
-			}
-		}
-
-		this.product = new asset(product.id, product.name, '//placehold.it/200', product.price);
-	},
 	components: {
 		Loading
 	},
+	
 	data(){
 		return {
 			id: urlParams.get('id'),
 			product:{},
 		};
+	},
+
+	async created() {
+		this.id = urlParams.get('id');
+
+		var product = null;
+
+		var storeProductsFromShop = this.$store.getters['product/products'];
+
+		if (storeProductsFromShop !== null) {
+			for (let productFromShop of storeProductsFromShop) {
+				if (productFromShop.id === this.id) {
+					product = productFromShop;
+				}
+			}
+
+			if (product === null) {
+				var storeProductsFromCategory = await this.$store.getters['category/products'];
+
+				if (storeProductsFromCategory !== null) {
+					for (let productFromCategory of storeProductsFromCategory) {
+						if (productFromCategory.id === this.id) {
+							product = productFromCategory;
+						}
+					}
+
+					if (product === null) {
+						product = await this.$store.dispatch('product/get', this.id);
+					}
+				} else {
+					product = await this.$store.dispatch('product/get', this.id);
+				}
+			}
+		} else {
+			product = await this.$store.dispatch('product/get', this.id);
+		}
+
+		this.product = new asset(product.id, product.name, '//placehold.it/200', product.price);
 	}
 };
 </script>
