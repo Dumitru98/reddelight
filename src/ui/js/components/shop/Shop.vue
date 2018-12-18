@@ -75,7 +75,7 @@
 	</div>
     <div class="card-body">
       <h4 class="card-title" @click="productPage(item.id)">{{ item.name }}</h4>
-      <div class="card-text" @click="getProducts()">${{ item.price / 100 }}</div>
+      <div class="card-text" @click="getProducts()">{{ item.price / 100 }} Lei</div>
       <div class="row justify-content-end">
         <button class="btn btn-primary" @click="addToCart(item.id)">Add to cart</button>
       </div>
@@ -90,11 +90,12 @@
 
 var Loading = require('../Loading.vue');
 class asset {
-	constructor (id, name, image, price){
+	constructor (id, name, image, price, categories){
 		this.id = id;
 		this.name = name;
 		this.image = image;
 		this.price = price;
+		this.categories = categories;
 	}
 }
 /*class produs {
@@ -121,13 +122,6 @@ module.exports = {
 		return {
 			searchToken:'',
 			categoryToken:'',
-			forSale : [
-				new asset('1', 'Loreeeem ipsum', '//placehold.it/200',  '999'),
-				new asset('2', 'Loremmmm', '//placehold.it/200',  '1499'),
-				new asset('3', 'Ipsum', '//placehold.it/200',  '499'),
-				new asset('4', 'Loremipsum', '//placehold.it/200',  '299'),
-				new asset('5', 'LoremIpsum', '//placehold.it/200',  '699')
-			],
 			products:[],
 			next: urlParams.get('id'),
 			noSearch:true,
@@ -149,20 +143,20 @@ module.exports = {
 		let products = await this.$store.dispatch('product/get30',1);
 
 		for(let product of products) {
-			this.products.push(new asset(product.id,product.name,'//placehold.id/200',product.price));
+			this.products.push(new asset(product.id,product.name,'//placehold.id/200',product.price, product.categories));
+			console.log(product.categories);
 		}
 	},
 	computed: {
 		filteredItems() {
 			return this.products.filter( item => {
-				return item.name.toLowerCase().includes(this.searchToken.toLowerCase() || this.categoryToken.toLowerCase());
-			});
-		},
-		filteredCategories() {
-			return this.forSale.filter( item => {
-				for(let category of item.categories){
-					if(category.toLowerCase().includes(this.categoryToken.toLowerCase())){
-						return category.toLowerCase().includes(this.categoryToken.toLowerCase());
+				if(this.categoryToken==null){
+					return item.name.toLowerCase().includes(this.searchToken.toLowerCase());
+				} else {
+					for(let category of item.categories){
+						if(category.toLowerCase().includes(this.categoryToken.toLowerCase())){
+							return category.toLowerCase().includes(this.categoryToken.toLowerCase());
+						}
 					}
 				}
 			});
