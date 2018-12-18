@@ -5,7 +5,8 @@ module.exports = {
 		SIGNUP: '/signup.html',
 		DASHBOARD: '/dashboard.html',
 		SHOP: '/shop.html',
-		PRODUCTPAGE: '/productPage.html?id='
+		PRODUCTPAGE: '/productPage.html?id=',
+		ids:[],
 	},
 	actions: {
 		redirect(store, application) {
@@ -15,5 +16,10 @@ module.exports = {
 			}
 		}
 	},
-	mutations: {}
+	mutations: {
+		id (state,id) {
+			state.ids.push(id);
+			return true;
+		}
+	}
 };

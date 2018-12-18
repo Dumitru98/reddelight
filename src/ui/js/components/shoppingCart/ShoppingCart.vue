@@ -68,6 +68,9 @@ module.exports = {
 	components: {
 		Loading
 	},
+	created(){
+		console.log(this.$store);
+	},
 	data(){
 		return {
 			products:[],

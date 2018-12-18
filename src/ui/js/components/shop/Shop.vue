@@ -77,7 +77,7 @@
       <h4 class="card-title" @click="productPage(item.id)">{{ item.name }}</h4>
       <div class="card-text" @click="getProducts()">${{ item.price / 100 }}</div>
       <div class="row justify-content-end">
-        <button class="btn btn-primary">Add to cart</button>
+        <button class="btn btn-primary" @click="addToCart(item.id)">Add to cart</button>
       </div>
     </div>
   </div>
@@ -133,6 +133,7 @@ module.exports = {
 			noSearch:true,
 			Categories:[],
 			currentPage:1,
+			index:0,
 		};
 	},
 	async created(){
@@ -189,6 +190,11 @@ module.exports = {
 					this.products.push(new asset(product.id,product.name,'//placehold.id/200',product.price));
 				}	
 			}
+		},
+		addToCart(index){
+			this.index++;
+			this.$store.commit('settings/id',index);
+			console.log(this.$store.state);
 		}
 	}
 };
