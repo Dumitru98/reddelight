@@ -143,7 +143,7 @@ module.exports = {
 	},
 	
 	created() {
-		this.$store.dispatch('user/makeCommand', this.command);
+		// this.$store.dispatch('user/makeCommand', this.command);
 		var produs = null;
 		var storeProductsFromShop = JSON.parse(window.localStorage.getItem('cart'));
 
