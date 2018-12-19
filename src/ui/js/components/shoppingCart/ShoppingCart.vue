@@ -65,9 +65,17 @@ class asset {
 }*/
 module.exports = {
 	name: 'ShoppingCart',
+
 	components: {
 		Loading
 	},
+
+	data(){
+		return {
+			products:[],
+		};
+	},
+	
 	async created(){
 		var ids = this.$store.getters['settings/ids'];
 		var produs = null;
@@ -102,11 +110,6 @@ module.exports = {
 			produs = new asset(product.id,product.name,'//nothing//',product.price);
 			this.products.push(produs);
 		}
-	},
-	data(){
-		return {
-			products:[],
-		};
 	}
 };
 </script>

@@ -45,8 +45,6 @@ module.exports = {
 				});
 
 				if (response.data.err === 0) {
-					store.commit('products', response.data.products);
-
 					return response.data.products;
 				} else {
 					Vue.toast.customToast({

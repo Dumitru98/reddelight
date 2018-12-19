@@ -19,10 +19,7 @@ module.exports = {
 			if (address !== '' && address !== undefined && address !== null) {
 				window.location.href = address;
 			}
-		},
-		addId(store,application){
-			store.commit('id',application.id);
-		},
+		}
 	},
 	mutations: {
 		id (state,id) {

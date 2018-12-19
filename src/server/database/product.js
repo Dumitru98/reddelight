@@ -19,6 +19,14 @@ var productSchema = mongoose.Schema({
 		type: Number,
 		required: true
 	},
+	colors: {
+		type: [String],
+		required: true
+	},
+	sizes: {
+		type: [String],
+		required: true
+	},
 	categories: {
 		type: [String],
 		required: true
