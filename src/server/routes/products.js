@@ -59,9 +59,9 @@ publicApp.post('/page', async function(req, res) {
 			var productsToSend = [];
 			var i = 1;
 			var stopIndex = req.body.startIndex*30;
-			var index = stopIndex-30 + 1;
+			var startIndex = stopIndex-30 + 1;
 			for (let product of products) {
-				if (i >= index && i <= stopIndex) {
+				if (i >= startIndex && i <= stopIndex) {
 					productsToSend.push(product);
 				}
 

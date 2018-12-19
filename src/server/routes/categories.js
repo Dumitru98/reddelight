@@ -60,7 +60,20 @@ publicApp.post('/get', async function(req, res) {
 			var category = await db.category.findByCategoryName(req.body.name);
 			
 			if (category) {
-				debug('Products got successful');
+				var productsToSend = [];
+				var i = 1;
+				var stopIndex = req.body.startIndex * 30 + 1;
+				var startIndex = stopIndex - 30;
+
+				for (let product of category.products) {
+					if (i >= startIndex && i <= stopIndex) {
+						productsToSend.push(product);
+					}
+
+					i ++;
+				}
+
+				debug('Products from category ' + req.body.name + ' got successful');
 				return res.status(200).send({ err: 0, products: category.products });
 			} else {
 				debug('Category doesn\'t exist');
