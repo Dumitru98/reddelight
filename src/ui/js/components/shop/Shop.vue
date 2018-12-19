@@ -55,16 +55,16 @@
 
 		<div class="row">
 			<div class="col-md-4" v-for="(item,index) in filteredItems" :key="index">
-				<div class="card">
+				<div class="card" >
 					<div :id="'car'+item.id" class="carousel slide" data-ride="carousel">
-						<div class="carousel-inner" >
-							<div class="carousel-item active">
+						<div class="carousel-inner">
+							<div class="carousel-item active" @click="productPage(item.id)">
 								<img class="d-block w-100" src="../../../img/generic-blue-ridge-mountains-2528x1422.jpg" alt="First slide">
 							</div>
-							<div class="carousel-item">
+							<div class="carousel-item" @click="productPage(item.id)">
 								<img class="d-block w-100" src="../../../img/josh-kao-genericmountains.jpg" alt="Second slide">
 							</div>
-							<div class="carousel-item">
+							<div class="carousel-item" @click="productPage(item.id)">
 								<img class="d-block w-100" src="../../../img/Monasterio_Khor_Virap,_Armenia,_2016-10-01,_DD_25.jpg" alt="Third slide">
 							</div>
 						</div>
@@ -80,12 +80,9 @@
 						</a>
 					</div>
 
-					<div class="card-body">
+					<div class="card-body" @click="productPage(item.id)">
 						<h4 class="card-title" @click="productPage(item.id)">{{ item.name }}</h4>
-						<div class="card-text" @click="getProducts()">{{ item.price }} Lei</div>
-						<div class="row justify-content-end">
-							<button class="btn btn-primary" @click="addToCart(item)">Add to cart</button>
-						</div>
+						<div class="card-text">{{ item.price }} Lei</div>
 					</div>
 				</div>
 			</div>
@@ -154,7 +151,7 @@ module.exports = {
 
 		for(let product of products) {
 			this.products.push(new asset(product.id, product.name, product.price, product.stock));
-			console.log(product.categories);
+			console.log(product);
 		}
 	},
 
@@ -188,9 +185,6 @@ module.exports = {
 
 		async getProducts(index){
 			console.log(index);
-			if(index!=1){
-				index=index+30;
-			}
 			let state = await this.$store.dispatch('product/get30', index);
 			if(state){
 				this.products=[];

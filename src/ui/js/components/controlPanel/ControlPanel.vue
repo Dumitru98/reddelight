@@ -121,7 +121,7 @@
 			</div>
 			
 			<h2>Create Category</h2>
-			<input v-model="testCategory" placeholder="Category Name">
+			<input v-model="testCategoryToAdd" placeholder="Category Name">
 		</form>
 		<button class="btn" type="button" @click="createCategory()">Create Category</button>
 	</div>
@@ -247,15 +247,19 @@ module.exports = {
 		},
 
 		async createCategory() {
-			await this.$store.dispatch('category/create', this.testCategory);
+			await this.$store.dispatch('category/create', this.testCategoryToAdd);
 		},
 
 		async createProduct() {
+			console.log(this.ColorsToSend);
+			console.log(this.SizesToSend);
 			await this.$store.dispatch('product/create',{
 				name:this.testName, 
 				price:this.testPrice, 
 				stock:this.testStock, 
-				categories:this.CategoriesToSend
+				categories:this.CategoriesToSend,
+				colors:this.ColorsToSend,
+				sizes:this.SizesToSend,
 			});
 		},
 		

@@ -63,8 +63,14 @@
 				</div>
 				<div class="card-body">
 					<h4 class="card-title">{{ product.name }}</h4>
-					<div class="card-text">Marime</div>
-					<div class="card-text">Culoare</div>
+					<select v-model="sizeToSend" id="size">
+						<option v-for="(item,index) in product.sizes" :key="index" :value="item">{{ item }}</option>
+					</select>
+					<label for="size" class="card-text">Marime</label>
+					<select v-model="sizeToSend" id="color">
+						<option v-for="(item,index) in product.colors" :key="index" :value="item">{{ item }}</option>
+					</select>
+					<label for="color" class="card-text">Marime</label>
 					<div class="card-text">Descriere</div>
 					<div class="card-text">{{ product.price / 100 }} lei</div>
 					<div class="row justify-content-end">
@@ -90,11 +96,14 @@ var urlParams = new URLSearchParams(window.location.search);
 // }
 
 class asset {
-	constructor (id, name, price, stock){
+	constructor (id, name, price, stock,categories,colors,sizes){
 		this.id = id;
 		this.name = name;
 		this.price = price;
 		this.stock = stock;
+		this.categories = categories;
+		this.colors = colors;
+		this.sizes = sizes;
 	}
 }
 
@@ -147,7 +156,7 @@ module.exports = {
 			product = await this.$store.dispatch('product/get', this.id);
 		}
 
-		this.product = new asset(product.id, product.name, product.price, product.stock);
+		this.product = new asset(product.id, product.name, product.price, product.stock,product.categories, product.colors, product.sizes);
 	},
 
 	methods: {
@@ -156,7 +165,9 @@ module.exports = {
 				id: this.product.id,
 				name: this.product.name,
 				price: this.product.price,
-				categories: this.product.categories
+				categories: this.product.categories,
+				colors:this.product.colors,
+				sizes:this.product.sizes
 			};
 
 			var currentCart = JSON.parse(window.localStorage.getItem('cart'));
