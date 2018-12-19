@@ -132,10 +132,10 @@ publicApp.post('/makeCommand', function(req, res) {
 		for (let product of command.products) {
 			productsText += '\n\nNume: ' + product.name;
 			productsText += '\nId: ' + product.id;
-			productsText += '\nPret: ' + product.price + ' Lei';
-			productsText += '\nCantitate: ' + product.quantity;
 			productsText += '\nCuloare: ' + product.color;
 			productsText += '\nMarime: ' + product.size;
+			productsText += '\nPret: ' + product.price + ' Lei';
+			productsText += '\nCantitate: ' + product.quantity;
 			productsPrice += product.price * product.quantity;
 		}
 
@@ -145,7 +145,7 @@ publicApp.post('/makeCommand', function(req, res) {
 			subject: 'Reddelight test',
 			text:
 				'\tDate comandă nouă:' +
-				'\n\nCodul comenzii: ' + uuid.v1() +
+				'\n\nCodul comenzii: ' + Math.floor(Math.random() * Math.floor(1000000)) +
 				'\nData comenzii: ' + moment().format('MMMM Do YYYY, h:mm:ss a') +
 
 				'\n\n\n\tDatele client:' +
@@ -159,7 +159,7 @@ publicApp.post('/makeCommand', function(req, res) {
 				'\n\n\n\tRezumat comandă:' +
 				productsText +
 				// '\n\nCost livrare: ' +
-				'\n\n\nPreț final: ' + productsPrice //To add delivery cost
+				'\n\n\nPreț final: ' + productsPrice + ' Lei' // De adaugat costul livrarii, in cazul in care se face
 		};
 
 		transporter.sendMail(mailOptions, function(error, info){
