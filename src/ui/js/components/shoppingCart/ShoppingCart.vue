@@ -14,9 +14,6 @@
 			<li class="nav-item">
 				<a class="nav-link" href="shop.html">Shop</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="commandPage.html">Command Page</a>
-			</li>
 				<li class="nav-item">
 				<a class="nav-link" href="contact.html">Contact</a>
 			</li>
@@ -68,20 +65,26 @@
 					<div class="card-body">
 						<h4 class="card-title">{{ item.name }}</h4>
 						<div class="card-text">{{ item.price }} Lei</div>
+						<div class="card-text">{{ item.color }}</div>
+						<div class="card-text">{{ item.size }}</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<CommandPage></CommandPage>
 	</div>
 </template>
 <script>
+var CommandPage = require('../commandPage/CommandPage.vue');
 var Loading = require('../Loading.vue');
 class asset {
-	constructor (id, name, image, price){
+	constructor (id, name, image, price, size, color){
 		this.id = id;
 		this.name = name;
 		this.image = image;
 		this.price = price;
+		this.size = size;
+		this.color = color;
 	}
 }
 /*class produs {
@@ -100,6 +103,7 @@ module.exports = {
 	name: 'ShoppingCart',
 
 	components: {
+		CommandPage,
 		Loading
 	},
 
@@ -109,40 +113,14 @@ module.exports = {
 		};
 	},
 	
-	async created(){
-		var ids = this.$store.getters['settings/ids'];
+	created(){
 		var produs = null;
-		console.log(this.$store.state);
-		for(let id of ids) {
-			var productFound = false;
-
-			var storeProductsFromShop = this.$store.getters['product/products'];
-
-			for (let product of storeProductsFromShop) {
-				if (product.id === id) {
-					console.log(product);
-					productFound = true;
-				}
-			}
-
-			if (!productFound) {
-				var storeProductsFromCategory = this.$store.getters['category/products'];
-
-				for (let product of storeProductsFromCategory) {
-					if (product.id === id) {
-						console.log(product);
-						productFound = true;
-					}
-				}
-
-				if (!productFound) {
-					var product = await this.$store.dispatch('product/get', id);
-					console.log(product);
-				}
-			}
-			produs = new asset(product.id,product.name,'//nothing//',product.price);
+		var storeProductsFromShop = JSON.parse(window.localStorage.getItem('cart'));
+		for(let product of storeProductsFromShop){
+			produs = new asset(product.id,product.name,'//nothing//',product.price, product.sizes, product.colors);
 			this.products.push(produs);
 		}
+		
 	}
 };
 </script>

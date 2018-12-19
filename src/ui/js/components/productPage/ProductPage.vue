@@ -15,9 +15,6 @@
 						<a class="nav-link" href="shop.html">Shop</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="commandPage.html">Command Page</a>
-					</li>
-					<li class="nav-item">
 						<a class="nav-link" href="contact.html">Contact</a>
 					</li>
 					<li class="nav-item">
@@ -67,10 +64,10 @@
 						<option v-for="(item,index) in product.sizes" :key="index" :value="item">{{ item }}</option>
 					</select>
 					<label for="size" class="card-text">Marime</label>
-					<select v-model="sizeToSend" id="color">
+					<select v-model="colorToSend" id="color">
 						<option v-for="(item,index) in product.colors" :key="index" :value="item">{{ item }}</option>
 					</select>
-					<label for="color" class="card-text">Marime</label>
+					<label for="color" class="card-text">Culoare</label>
 					<div class="card-text">Descriere</div>
 					<div class="card-text">{{ product.price / 100 }} lei</div>
 					<div class="row justify-content-end">
@@ -118,6 +115,8 @@ module.exports = {
 		return {
 			id: urlParams.get('id'),
 			product:{},
+			colorToSend:'',
+			sizeToSend:'',
 		};
 	},
 
@@ -166,8 +165,8 @@ module.exports = {
 				name: this.product.name,
 				price: this.product.price,
 				categories: this.product.categories,
-				colors:this.product.colors,
-				sizes:this.product.sizes
+				colors:this.colorToSend,
+				sizes:this.sizeToSend
 			};
 
 			var currentCart = JSON.parse(window.localStorage.getItem('cart'));
