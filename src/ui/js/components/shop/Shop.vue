@@ -50,7 +50,7 @@
 			<option v-for="(item,index) in Categories" :key=index :value="item">{{ item }}</option>
 		</select>
 
-		<b-pagination size="sm" align="center" :total-rows="100" v-model="currentPage" :per-page="10" @change="getProducts(currentPage)">
+		<b-pagination size="large" align="center" v-model="currentPage" :total-rows="100"  :per-page="10" @input="getProducts(currentPage)">
 		</b-pagination>
 
 		<div class="row">
@@ -87,6 +87,8 @@
 				</div>
 			</div>
 		</div>
+		<b-pagination size="large" align="center" v-model="currentPage" :total-rows="100"  :per-page="10" @input="getProducts(currentPage)">
+		</b-pagination>
 	</div>
 </template>
 
@@ -151,30 +153,19 @@ module.exports = {
 
 		for(let product of products) {
 			this.products.push(new asset(product.id, product.name, product.price, product.stock));
-			console.log(product);
 		}
 	},
 
 	computed: {
 		filteredItems() {
 			return this.products.filter( item => {
-				/*if(this.categoryToken==null){*/
 				return item.name.toLowerCase().includes(this.searchToken.toLowerCase());
-				/*} else {
-					for(let category of item.categories){
-						if(category.toLowerCase().includes(this.categoryToken.toLowerCase())){
-							return category.toLowerCase().includes(this.categoryToken.toLowerCase());
-						}
-					}
-				}*/
 			});
 		}
 	},
 
 	methods: {
 		async productPage(id){
-			console.log('OKAYISH');
-			console.log(id);
 			this.next=id;
 			await this.$store.dispatch('settings/redirect',{
 				address:'PRODUCTPAGE',

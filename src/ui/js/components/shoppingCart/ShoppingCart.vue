@@ -38,7 +38,40 @@
 			</ul>
 		</div>
 	</nav>
-	
+	<div class="row">
+			<div class="col-md-6" v-for="(item,index) in products" :key="index">
+				<div class="card" >
+					<div :id="'car'+item.id" class="carousel slide" data-ride="carousel">
+						<div class="carousel-inner">
+							<div class="carousel-item active" @click="productPage(item.id)">
+								<img class="d-block w-100" src="../../../img/generic-blue-ridge-mountains-2528x1422.jpg" alt="First slide">
+							</div>
+							<div class="carousel-item" @click="productPage(item.id)">
+								<img class="d-block w-100" src="../../../img/josh-kao-genericmountains.jpg" alt="Second slide">
+							</div>
+							<div class="carousel-item" @click="productPage(item.id)">
+								<img class="d-block w-100" src="../../../img/Monasterio_Khor_Virap,_Armenia,_2016-10-01,_DD_25.jpg" alt="Third slide">
+							</div>
+						</div>
+
+						<a class="carousel-control-prev" :href="'#car'+item.id"  role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+
+						<a class="carousel-control-next" :href="'#car'+item.id"  role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+					</div>
+
+					<div class="card-body">
+						<h4 class="card-title">{{ item.name }}</h4>
+						<div class="card-text">{{ item.price }} Lei</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 <script>

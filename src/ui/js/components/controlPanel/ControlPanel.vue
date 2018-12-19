@@ -75,55 +75,61 @@
 					<p>{{category}}<button type="button" @click="popCategory(category)"> x</button></p>
 				</li>
 			</ul>
+			<button class="btn" type="submit" @click="createProduct()">Add Product</button>
 		</form>
-		<button class="btn" type="submit" @click="createProduct()">Add Product</button>
+		
 
 		<form>
-			<h2>Remove Product</h2>
-			<div class="row">
-				<div class="col-md-4" v-for="(item,index) in products" :key="index">
-					<div class="card">
-						<div :id="'car'+item.id" class="carousel slide" data-ride="carousel">
-							<div class="carousel-inner" >
-								<div class="carousel-item active">
-									<img class="d-block w-100" src="../../../img/generic-blue-ridge-mountains-2528x1422.jpg" alt="First slide">
-								</div>
+			<h2>Create Category</h2>
+			<input v-model="testCategoryToAdd" placeholder="Category Name">
+			<button class="btn" type="submit" @click="createCategory()">Create Category</button>
+		</form>
+		
+		<form>
+		<h2>Remove Product</h2>
+		<b-pagination size="large" align="center" v-model="currentPage" :total-rows="100"  :per-page="10" @input="getProducts(currentPage)">
+		</b-pagination>
 
-								<div class="carousel-item">
-									<img class="d-block w-100" src="../../../img/josh-kao-genericmountains.jpg" alt="Second slide">
-								</div>
-
-								<div class="carousel-item">
-									<img class="d-block w-100" src="../../../img/Monasterio_Khor_Virap,_Armenia,_2016-10-01,_DD_25.jpg" alt="Third slide">
-								</div>
+		<div class="row">
+			<div class="col-md-4" v-for="(item,index) in products" :key="index">
+				<div class="card" >
+					<div :id="'car'+item.id" class="carousel slide" data-ride="carousel">
+						<div class="carousel-inner">
+							<div class="carousel-item active" @click="productPage(item.id)">
+								<img class="d-block w-100" src="../../../img/generic-blue-ridge-mountains-2528x1422.jpg" alt="First slide">
 							</div>
-
-							<a class="carousel-control-prev" :href="'#car'+item.id"  role="button" data-slide="prev">
-								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-								<span class="sr-only">Previous</span>
-							</a>
-
-							<a class="carousel-control-next" :href="'#car'+item.id"  role="button" data-slide="next">
-								<span class="carousel-control-next-icon" aria-hidden="true"></span>
-								<span class="sr-only">Next</span>
-							</a>
+							<div class="carousel-item" @click="productPage(item.id)">
+								<img class="d-block w-100" src="../../../img/josh-kao-genericmountains.jpg" alt="Second slide">
+							</div>
+							<div class="carousel-item" @click="productPage(item.id)">
+								<img class="d-block w-100" src="../../../img/Monasterio_Khor_Virap,_Armenia,_2016-10-01,_DD_25.jpg" alt="Third slide">
+							</div>
 						</div>
 
-						<div class="card-body">
-							<h4 class="card-title" @click="productPage(item.id)">{{ item.name }}</h4>
-							<div class="card-text" @click="getProducts()">{{ item.price / 100 }} Lei</div>
-							<div class="row justify-content-end">
-								<button class="btn btn-primary" @click="removeProduct(item.id)" type="submit">Remove</button>
-							</div>
+						<a class="carousel-control-prev" :href="'#car'+item.id"  role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+
+						<a class="carousel-control-next" :href="'#car'+item.id"  role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+					</div>
+
+					<div class="card-body" @click="productPage(item.id)">
+						<h4 class="card-title" @click="productPage(item.id)">{{ item.name }}</h4>
+						<div class="card-text">{{ item.price }} Lei</div>
+						<div class="row justify-content-end">
+							<button class="btn btn-primary" @click="removeProduct(item.id)" type="submit">Remove</button>
 						</div>
 					</div>
 				</div>
 			</div>
-			
-			<h2>Create Category</h2>
-			<input v-model="testCategoryToAdd" placeholder="Category Name">
+		</div>
+		<b-pagination size="large" align="center" v-model="currentPage" :total-rows="100"  :per-page="10" @input="getProducts(currentPage)">
+		</b-pagination>
 		</form>
-		<button class="btn" type="button" @click="createCategory()">Create Category</button>
 	</div>
 </template>
 
@@ -172,6 +178,7 @@ module.exports = {
 
 			Categories: [],
 			products: [],
+			currentPage:1,
 
 			CategoriesToSend:[],
 			CategoriesToShow:[],
@@ -262,7 +269,16 @@ module.exports = {
 				sizes:this.SizesToSend,
 			});
 		},
-		
+		async getProducts(index){
+			console.log(index);
+			let state = await this.$store.dispatch('product/get30', index);
+			if(state){
+				this.products=[];
+				for(let product of state) {
+					this.products.push(new asset(product.id, product.name, product.price, product.stock, null, null));
+				}	
+			}
+		},
 		async removeProduct(idToDelete) {
 			await this.$store.dispatch('product/delete', idToDelete);
 		}
