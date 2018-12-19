@@ -11,7 +11,7 @@ Vue.mixin({
 var Dashboard = require('./components/dashboard/Dashboard.vue');
 
 new Vue({
-	el: '#dashboard',
+	el: '#wrapper',
 	data: {},
 	render: function(render) {
 		return render(Dashboard);
