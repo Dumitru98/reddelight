@@ -146,7 +146,7 @@ module.exports = {
 			this.Categories.sort();
 		}
 
-		let products = await this.$store.dispatch('product/get30',1);
+		let products = await this.$store.dispatch('product/page',1);
 		window.localStorage.setItem('shopProducts', JSON.stringify(products));
 
 		for(let product of products) {
@@ -185,7 +185,7 @@ module.exports = {
 
 		async getProducts(index){
 			console.log(index);
-			let state = await this.$store.dispatch('product/get30', index);
+			let state = await this.$store.dispatch('product/page', index);
 			if(state){
 				this.products=[];
 				for(let product of state) {

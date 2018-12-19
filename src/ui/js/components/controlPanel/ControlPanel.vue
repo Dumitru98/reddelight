@@ -201,7 +201,7 @@ module.exports = {
 			this.Categories.sort();
 		}
 
-		let products = await this.$store.dispatch('product/get30', 1);
+		let products = await this.$store.dispatch('product/page', 1);
 
 		for(let product of products) {
 			this.products.push(new asset(product.id, product.name, '//placehold.id/200', product.price));

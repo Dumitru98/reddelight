@@ -38,10 +38,11 @@ module.exports = {
 			}
 		},
 
-		async get(store, name) {
+		async get(store, name, index) {
 			try {
 				let response = await Vue.http.post(setup.API + '/categories/get', {
-					name: name
+					name: name,
+					startIndex: index
 				});
 
 				if (response.data.err === 0) {
