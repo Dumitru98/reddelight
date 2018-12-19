@@ -10,7 +10,7 @@ var publicApp = express.Router();
 debug.log = console.info.bind(console);
 
 function createProductId() {
-	return uuid.v4() + uuid.v4() + uuid.v4() + uuid.v4();
+	return uuid.v4() + uuid.v4();
 }
 
 publicApp.post('/create', async function(req, res) {
@@ -74,6 +74,23 @@ publicApp.post('/page', async function(req, res) {
 		} else {
 			debug('Could\'t get the products');
 			return res.status(200).send({ err: 1, message: 'Could\'t get the products!' });
+		}
+	} catch(e) {
+		debug('Server error');
+		return res.status(400).send({ err: 1, message: 'Server error!\n' + e });
+	}
+});
+
+publicApp.post('/count', async function(req, res) {
+	try {
+		var products = await db.product.listProducts();
+
+		if (products) {
+			debug('The products were counted successful');
+			return res.status(200).send({ err: 0, count: products.length });
+		} else {
+			debug('Failed to get the product list');
+			return res.status(200).send({ err: 1, message: 'Couldn\'t get the product list!' });
 		}
 	} catch(e) {
 		debug('Server error');

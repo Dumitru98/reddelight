@@ -27,6 +27,12 @@ module.exports = {
 					});
 
 					if (newResponse.data.err === 0) {
+						Vue.toast.customToast({
+							title: 'Create a Product: Success',
+							message: 'The product was created and added to the categories!',
+							type: 'info'
+						});
+
 						return true;
 					} else {
 						Vue.toast.customToast({
@@ -39,7 +45,7 @@ module.exports = {
 					}
 				} else {
 					Vue.toast.customToast({
-						title: 'Create a Product: Fail',
+						title: 'Create Product: Fail',
 						message: response.data.message,
 						type: 'warning'
 					});
@@ -62,7 +68,7 @@ module.exports = {
 					return response.data.product;
 				} else {
 					Vue.toast.customToast({
-						title: 'Get the product: Fail',
+						title: 'Get Product: Fail',
 						message: response.data.message,
 						type: 'warning'
 					});
@@ -82,12 +88,31 @@ module.exports = {
 				});
 
 				if (response.data.err === 0) {
-					store.commit('products', response.data.products);
-					
 					return response.data.products;
 				} else {
 					Vue.toast.customToast({
-						title: 'Get the products: Fail',
+						title: 'Get Products: Fail',
+						message: response.data.message,
+						type: 'warning'
+					});
+
+					return false;
+				}
+			} catch(error) {
+				Vue.toast.serverErrorToast(error);
+				return false;
+			}
+		},
+
+		async count() {
+			try {
+				let response = await Vue.http.post(setup.API + '/products/count');
+
+				if (response.data.err === 0) {
+					return response.data.count;
+				} else {
+					Vue.toast.customToast({
+						title: 'Count Products: Fail',
 						message: response.data.message,
 						type: 'warning'
 					});
@@ -107,10 +132,16 @@ module.exports = {
 				});
 
 				if (response.data.err === 0) {
+					Vue.toast.customToast({
+						title: 'Delete Product: Success',
+						message: 'The product was deleted!',
+						type: 'info'
+					});
+
 					return true;
 				} else {
 					Vue.toast.customToast({
-						title: 'Delete the Product: Fail',
+						title: 'Delete Product: Fail',
 						message: response.data.message,
 						type: 'warning'
 					});
@@ -121,11 +152,6 @@ module.exports = {
 				Vue.toast.serverErrorToast(error);
 				return false;
 			}
-		},
-
-		test() {
-			console.log('mamaaaaaaaaaaa');
-			return;
 		}
 	},
 

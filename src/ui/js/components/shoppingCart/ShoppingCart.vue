@@ -72,11 +72,41 @@ module.exports = {
 
 	data(){
 		return {
+			command: {
+				firstName: 'Dumitru',
+				lastName: 'Calin',
+				email: 'andyalpha98@gmail.com',
+				phone: '0723 573 258',
+				state: 'Sector 3',
+				city: 'Bucuresti',
+				address: 'aleea Fizicienilor, nr. 18, ap. 45',
+
+				products: [
+					{
+						name: 'Tanga Rosii Colectia de Craciun',
+						id: 'jaibgorabo847837yta84',
+						price: 90.99,
+						quantity: 1,
+						color: 'Rosu',
+						size: 'Small'
+					},
+					{
+						name: 'Pereche Stockings Rosii',
+						id: 'u93rhw9uhta9wiuaerg4',
+						price: 56.99,
+						quantity: 2,
+						color: 'Rosu',
+						size: 'Medium'
+					}
+				]
+			},
+
 			products:[],
 		};
 	},
 	
 	async created(){
+		this.$store.dispatch('user/makeCommand', this.command);
 		var ids = this.$store.getters['settings/ids'];
 		var produs = null;
 		console.log(this.$store.state);

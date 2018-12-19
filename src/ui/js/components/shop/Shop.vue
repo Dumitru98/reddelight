@@ -137,7 +137,7 @@ module.exports = {
 
 	async created() {
 		window.localStorage.setItem('cart', JSON.stringify([]));
-		let state = await this.$store.dispatch('category/all');
+		let state = await this.$store.dispatch('category/names');
 
 		if(state){
 			for(let category of state) {

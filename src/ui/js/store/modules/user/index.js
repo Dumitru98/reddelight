@@ -143,6 +143,12 @@ module.exports = {
 				});
 
 				if (response.data.err === 0) {
+					Vue.toast.customToast({
+						title: 'Sending Command: Success',
+						message: 'The command was successfully processed!\nPlease check your e-mail for further details!',
+						type: 'info'
+					});
+
 					return true;
 				} else {
 					Vue.toast.customToast({
@@ -185,12 +191,6 @@ module.exports = {
 			}
 		},
 
-		token(store) {
-			store.commit('token', null);
-
-			return true;
-		},
-
 		async delete(store, token) {
 			try {
 				let response = await Vue.http.post(setup.API + '/users/delete', {
@@ -201,7 +201,7 @@ module.exports = {
 					store.commit('token', null);
 					store.commit('user', null);
 
-					return false;
+					return true;
 				} else {
 					Vue.toast.customToast({
 						title: 'Delete User: Fail',
@@ -215,6 +215,12 @@ module.exports = {
 				Vue.toast.serverErrorToast(error);
 				return false;
 			}
+		},
+
+		token(store) {
+			store.commit('token', null);
+
+			return true;
 		}
 	},
 	

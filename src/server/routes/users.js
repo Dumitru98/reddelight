@@ -3,6 +3,7 @@
 var express = require('express');
 var debug = require('debug')('reddelight:user-routes');
 var uuid = require('uuid');
+var moment = require('moment');
 var db = require('../database/database.js');
 var nodemailer = require('nodemailer');
 
@@ -116,7 +117,7 @@ privateApp.post('/update', async function (req, res) {
 
 publicApp.post('/makeCommand', function(req, res) {
 	try {
-		let command = req.body.command;
+		var command = req.body.command;
 		
 		var transporter = nodemailer.createTransport({
 			service: 'gmail',
@@ -131,10 +132,10 @@ publicApp.post('/makeCommand', function(req, res) {
 		for (let product of command.products) {
 			productsText += '\n\nNume: ' + product.name;
 			productsText += '\nId: ' + product.id;
-			productsText += '\nPret: ' + product.price + ' lei';
+			productsText += '\nPret: ' + product.price + ' Lei';
 			productsText += '\nCantitate: ' + product.quantity;
-			productsText += '\nCuloare: ';
-			productsText += '\nMarime: ';
+			productsText += '\nCuloare: ' + product.color;
+			productsText += '\nMarime: ' + product.size;
 			productsPrice += product.price * product.quantity;
 		}
 
@@ -143,23 +144,22 @@ publicApp.post('/makeCommand', function(req, res) {
 			to: 'dumitru.alexandru.1998@gmail.com',
 			subject: 'Reddelight test',
 			text:
-				'\tDate comandă nouă nr. ' + '\n\n' + //De creat un numar de comanda
-				'\tDatele client:\n' +
+				'\tDate comandă nouă:' +
+				'\n\nCodul comenzii: ' + uuid.v1() +
+				'\nData comenzii: ' + moment().format('MMMM Do YYYY, h:mm:ss a') +
 
-				'\nNumărul comenzii: ' +
-				'\nData comenzii: ' + Date.now() +
-				'\nNume: ' + command.firstName + ' ' + command.lastName +
+				'\n\n\n\tDatele client:' +
+				'\n\nNume: ' + command.firstName + ' ' + command.lastName +
 				'\nEmail: ' + command.email +
 				'\nNumăr de contact: ' + command.phone +
-				'\nAdresă de domiciliu: ' + command.state + ' ' + command.city + ' ' + command.address +
 				'\nAdresă de livrare: ' + command.state + ' ' + command.city + ' ' + command.address +
-				'\nModalitate de livrare: ' +
-				'\nMetodă de plată: ' +
+				// '\nModalitate de livrare: ' + 	De intrebat
+				// '\nMetodă de plată: ' +
 				
-				'\n\n\tRezumant comandă:\n' +
+				'\n\n\n\tRezumat comandă:' +
 				productsText +
-				'\n\nCost livrare: ' +
-				'\nPreț final: ' + productsPrice //To add delivery cost
+				// '\n\nCost livrare: ' +
+				'\n\n\nPreț final: ' + productsPrice //To add delivery cost
 		};
 
 		transporter.sendMail(mailOptions, function(error, info){

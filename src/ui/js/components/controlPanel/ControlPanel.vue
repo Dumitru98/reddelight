@@ -188,7 +188,7 @@ module.exports = {
 	},
 
 	async created() {
-		let state = await this.$store.dispatch('category/all');
+		let state = await this.$store.dispatch('category/names');
 		console.log('NOTOKAY');
 
 		if(state){
