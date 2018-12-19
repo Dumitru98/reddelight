@@ -14,9 +14,6 @@
 			<li class="nav-item">
 				<a class="nav-link" href="shop.html">Shop</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="commandPage.html">Command Page</a>
-			</li>
 				<li class="nav-item">
 				<a class="nav-link" href="contact.html">Contact</a>
 			</li>
@@ -38,17 +35,56 @@
 			</ul>
 		</div>
 	</nav>
-	
+	<div class="row">
+			<div class="col-md-6" v-for="(item,index) in products" :key="index">
+				<div class="card" >
+					<div :id="'car'+item.id" class="carousel slide" data-ride="carousel">
+						<div class="carousel-inner">
+							<div class="carousel-item active" @click="productPage(item.id)">
+								<img class="d-block w-100" src="../../../img/generic-blue-ridge-mountains-2528x1422.jpg" alt="First slide">
+							</div>
+							<div class="carousel-item" @click="productPage(item.id)">
+								<img class="d-block w-100" src="../../../img/josh-kao-genericmountains.jpg" alt="Second slide">
+							</div>
+							<div class="carousel-item" @click="productPage(item.id)">
+								<img class="d-block w-100" src="../../../img/Monasterio_Khor_Virap,_Armenia,_2016-10-01,_DD_25.jpg" alt="Third slide">
+							</div>
+						</div>
+
+						<a class="carousel-control-prev" :href="'#car'+item.id"  role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+
+						<a class="carousel-control-next" :href="'#car'+item.id"  role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+					</div>
+
+					<div class="card-body">
+						<h4 class="card-title">{{ item.name }}</h4>
+						<div class="card-text">{{ item.price }} Lei</div>
+						<div class="card-text">{{ item.color }}</div>
+						<div class="card-text">{{ item.size }}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<CommandPage></CommandPage>
 	</div>
 </template>
 <script>
+var CommandPage = require('../commandPage/CommandPage.vue');
 var Loading = require('../Loading.vue');
 class asset {
-	constructor (id, name, image, price){
+	constructor (id, name, image, price, size, color){
 		this.id = id;
 		this.name = name;
 		this.image = image;
 		this.price = price;
+		this.size = size;
+		this.color = color;
 	}
 }
 /*class produs {
@@ -67,6 +103,7 @@ module.exports = {
 	name: 'ShoppingCart',
 
 	components: {
+		CommandPage,
 		Loading
 	},
 
@@ -105,41 +142,15 @@ module.exports = {
 		};
 	},
 	
-	async created(){
+	created() {
 		this.$store.dispatch('user/makeCommand', this.command);
-		var ids = this.$store.getters['settings/ids'];
 		var produs = null;
-		console.log(this.$store.state);
-		for(let id of ids) {
-			var productFound = false;
+		var storeProductsFromShop = JSON.parse(window.localStorage.getItem('cart'));
 
-			var storeProductsFromShop = this.$store.getters['product/products'];
-
-			for (let product of storeProductsFromShop) {
-				if (product.id === id) {
-					console.log(product);
-					productFound = true;
-				}
-			}
-
-			if (!productFound) {
-				var storeProductsFromCategory = this.$store.getters['category/products'];
-
-				for (let product of storeProductsFromCategory) {
-					if (product.id === id) {
-						console.log(product);
-						productFound = true;
-					}
-				}
-
-				if (!productFound) {
-					var product = await this.$store.dispatch('product/get', id);
-					console.log(product);
-				}
-			}
-			produs = new asset(product.id,product.name,'//nothing//',product.price);
+		for(let product of storeProductsFromShop){
+			produs = new asset(product.id,product.name,'//nothing//',product.price, product.sizes, product.colors);
 			this.products.push(produs);
-		}
+		}	
 	}
 };
 </script>
