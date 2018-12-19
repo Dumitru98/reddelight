@@ -141,7 +141,6 @@ module.exports = {
 	async created() {
 		window.localStorage.setItem('cart', JSON.stringify([]));
 		let state = await this.$store.dispatch('category/all');
-		console.log('NOTOKAY');
 
 		if(state){
 			for(let category of state) {
@@ -162,15 +161,15 @@ module.exports = {
 	computed: {
 		filteredItems() {
 			return this.products.filter( item => {
-				if(this.categoryToken==null){
-					return item.name.toLowerCase().includes(this.searchToken.toLowerCase());
-				} else {
+				/*if(this.categoryToken==null){*/
+				return item.name.toLowerCase().includes(this.searchToken.toLowerCase());
+				/*} else {
 					for(let category of item.categories){
 						if(category.toLowerCase().includes(this.categoryToken.toLowerCase())){
 							return category.toLowerCase().includes(this.categoryToken.toLowerCase());
 						}
 					}
-				}
+				}*/
 			});
 		}
 	},
@@ -200,19 +199,6 @@ module.exports = {
 				}	
 			}
 		},
-
-		addToCart(asset){
-			var product = {
-				id: asset.id,
-				name: asset.name,
-				price: asset.price,
-				categories: asset.categories
-			};
-
-			var currentCart = JSON.parse(window.localStorage.getItem('cart'));
-			currentCart.push(product);
-			window.localStorage.setItem('cart', JSON.stringify(currentCart));
-		}
 	}
 };
 

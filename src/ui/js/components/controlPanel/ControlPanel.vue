@@ -46,20 +46,37 @@
 			<input class="form-control" v-model="testPrice" placeholder="Price">
 			<input class="form-control" v-model="testStock" placeholder="Stock">
 
-			<label for="categoryInput">Category</label>
+			<input class="form-control" v-model="testSize" placeholder="Size" id="sizeInput">
+			<button class="btn btn-inline" type="button" @click="addSize">Add Size</button>
+			<label for="sizeList">Sizes</label>
+			<ul id="sizeList">
+				<li v-for="(size, index) in SizesToShow " :key="index">
+					<p>{{size}}<button class="btn btn-inline" type="button" @click="popSize(size)"> x</button></p>
+				</li>
+			</ul>
+
+			<input class="form-control" v-model="testColors" placeholder="Color" id="colorInput">
+			<button class="btn btn-inline" type="button" @click="addColor">Add Color</button>
+			<label for="colorList">Colors</label>
+			<ul id="colorList">
+				<li v-for="(color, index) in ColorsToShow " :key="index">
+					<p>{{color}}<button class="btn btn-inline" type="button" @click="popColor(color)"> x</button></p>
+				</li>
+			</ul>
+
+			<label for="categoryList">Category</label>
 			<select v-model="testCategory" id="categoryInput">
 				<option v-for="(item,index) in Categories" :key=index :value="item">{{item}}</option>
 			</select>
+			<button @click="addCategory" class="btn btn-inline" type="button">Add Category</button>
 
-			<ul>
+			<ul id="categoryList">
 				<li v-for="(category, index) in CategoriesToShow" :key="index">
-					<p>{{category}}<button type="button" @click="outWithCategory(category)">x</button></p>
+					<p>{{category}}<button type="button" @click="popCategory(category)"> x</button></p>
 				</li>
 			</ul>
-			<button @click="addCategory" class="btn btn-inline" type="button">Add Category</button>
 		</form>
-
-		<button class="btn btn-outline-success my-2 my-sm-0" type="submit" @click="createProduct()">Add Product</button>
+		<button class="btn" type="submit" @click="createProduct()">Add Product</button>
 
 		<form>
 			<h2>Remove Product</h2>
@@ -106,7 +123,7 @@
 			<h2>Create Category</h2>
 			<input v-model="testCategory" placeholder="Category Name">
 		</form>
-		<button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="createCategory()">Create Category</button>
+		<button class="btn" type="button" @click="createCategory()">Create Category</button>
 	</div>
 </template>
 
@@ -149,6 +166,8 @@ module.exports = {
 			testCategory:'',
 			testCategoryToAdd:'',
 			testStock:0,
+			testSize:'',
+			testColors:'',
 			name:'',
 
 			Categories: [],
@@ -156,6 +175,12 @@ module.exports = {
 
 			CategoriesToSend:[],
 			CategoriesToShow:[],
+
+			ColorsToShow:[],
+			ColorsToSend:[],
+
+			SizesToShow:[],
+			SizesToSend:[],
 
 			productName:'',
 			productToChange:'',
@@ -184,17 +209,40 @@ module.exports = {
 	},
 
 	methods: {
-		addCategory() {
-			this.CategoriesToSend.push(this.testCategory);
+		addCategory(){
 			this.CategoriesToShow.push(this.testCategory);
+			this.CategoriesToSend.push(this.testCategory);
 		},
-
-		outWithCategory(category) {
-			var index = this.CategoriesToShow.indexOf(category);
+		addSize(){
+			this.SizesToShow.push(this.testSize);
+			this.SizesToSend.push(this.testSize);
+		},
+		addColor(){
+			this.ColorsToShow.push(this.testColors);
+			this.ColorsToSend.push(this.testColors);
+		},
+		popCategory(item) {
+			var index = this.CategoriesToShow.indexOf(item);
 
 			if(index > -1) {
 				this.CategoriesToShow.splice(index, 1);
 				this.CategoriesToSend.splice(index, 1);
+			}
+		},
+		popColor(item) {
+			var index = this.ColorsToShow.indexOf(item);
+
+			if(index > -1) {
+				this.ColorsToShow.splice(index, 1);
+				this.ColorsToSend.splice(index, 1);
+			}
+		},
+		popSize(item) {
+			var index = this.SizesToShow.indexOf(item);
+
+			if(index > -1) {
+				this.SizesToShow.splice(index, 1);
+				this.SizesToSend.splice(index, 1);
 			}
 		},
 
