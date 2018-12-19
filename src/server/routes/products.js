@@ -20,9 +20,11 @@ publicApp.post('/create', async function(req, res) {
 		var name = req.body.name;
 		var price = req.body.price;
 		var stock = req.body.stock;
+		var sizes = req.body.sizes;
+		var colors = req.body.colors;
 		var categories = req.body.categories;
 
-		await db.product.createProduct(id, name, price, stock, categories, date);
+		await db.product.createProduct(id, name, price, stock, sizes, colors, categories, date);
 
 		debug('Product created');
 		return res.status(200).send({ err: 0, id: id });

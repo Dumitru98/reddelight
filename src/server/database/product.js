@@ -50,12 +50,14 @@ var productSchema = mongoose.Schema({
 
 var Product = mongoose.model('Product', productSchema);
 
-function createProduct(id, name, price, stock, categories, date) {
+function createProduct(id, name, price, stock, sizes, colors, categories, date) {
 	var product = new Product(_.assign({}, {
 		id: id,
 		name: name,
 		price: price,
 		stock: stock,
+		sizes: sizes,
+		colors: colors,
 		categories: categories,
 		date: date
 	}));
