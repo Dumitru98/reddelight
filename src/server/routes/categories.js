@@ -74,8 +74,8 @@ publicApp.post('/get', async function(req, res) {
 		if (category) {
 			var productsToSend = [];
 			var i = 1;
-			var stopIndex = req.body.startIndex * 30 + 1;
-			var startIndex = stopIndex - 30;
+			var stopIndex = req.body.startIndex*30;
+			var startIndex = stopIndex-30 + 1;
 
 			for (let product of category.products) {
 				if (i >= startIndex && i <= stopIndex) {

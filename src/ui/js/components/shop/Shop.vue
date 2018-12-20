@@ -41,13 +41,19 @@
 				</form>
 			</div>
 		</nav>
-
+		<ul>
+			<li v-for="(item,index) in Categories" :key=index >
+				<input :id="item" type="checkbox" :value="item" @click="setToken(item)">{{ item }}<br>
+			</li>
+		</ul>
+		<button type="button" @click="ifToken(currentPage,categoryToken)">search</button>
+		
 		<select v-model="categoryToken">
 			<option :value="''"></option>
 			<option v-for="(item,index) in Categories" :key=index :value="item">{{ item }}</option>
 		</select>
 
-		<b-pagination size="large" align="center" v-model="currentPage" :total-rows="100"  :per-page="10" @input="getProducts(currentPage)">
+		<b-pagination size="large" align="center" v-model="currentPage" :total-rows="this.pages*30"  :per-page="30" @input="ifToken(currentPage,categoryToken)">
 		</b-pagination>
 
 		<div class="row">
@@ -84,7 +90,7 @@
 				</div>
 			</div>
 		</div>
-		<b-pagination size="large" align="center" v-model="currentPage" :total-rows="100"  :per-page="10" @input="getProducts(currentPage)">
+		<b-pagination size="large" align="center" v-model="currentPage" :total-rows="100"  :per-page="10" @input="ifToken(currentPage,categoryToken)">
 		</b-pagination>
 	</div>
 </template>
@@ -124,33 +130,37 @@ module.exports = {
 
 		return {
 			searchToken:'',
-			categoryToken:'',
+			categoryToken:[],
 			products:[],
 			next: urlParams.get('id'),
 			noSearch:true,
 			Categories:[],
 			currentPage:1,
 			index:0,
+			pages:0,
 		};
 	},
 
 	async created() {
 		window.localStorage.setItem('cart', JSON.stringify([]));
 		let state = await this.$store.dispatch('category/names');
-
+		
 		if(state){
 			for(let category of state) {
-				this.Categories.push(category.name);
+				this.Categories.push(category);
 			}
 			this.Categories.sort();
 		}
-
+		console.log(this.Categories);
 		let products = await this.$store.dispatch('product/page',1);
 		window.localStorage.setItem('shopProducts', JSON.stringify(products));
 
 		for(let product of products) {
 			this.products.push(new asset(product.id, product.name, product.price, product.stock));
 		}
+		let number = await this.$store.dispatch('product/count');
+		this.pages=Math.round(number/30);
+		console.log(this.pages);
 	},
 
 	computed: {
@@ -170,9 +180,17 @@ module.exports = {
 			});
 
 		},
-
+		setToken(token){
+			var checkbox = document.getElementById(token);
+			if(checkbox.checked==false){
+				this.categoryToken.pop(token);
+			} else {
+				this.categoryToken.push(token);
+			}
+			console.log(this.categoryToken);
+			
+		},
 		async getProducts(index){
-			console.log(index);
 			let state = await this.$store.dispatch('product/page', index);
 			if(state){
 				this.products=[];
@@ -181,6 +199,23 @@ module.exports = {
 				}	
 			}
 		},
+		async getProductsCategories(index,names){
+			console.log(name + ' '+ index);
+			let state = await this.$store.dispatch('category/get',names,index);
+			if(state){
+				this.products=[];
+				for(let product of state) {
+					this.products.push(new asset(product.id, product.name, product.price, product.stock, null, null));
+				}	
+			}
+		},
+		ifToken(index,names){
+			if(this.categoryToken.length==0){
+				this.getProducts(index);
+			} else {
+				this.getProductsCategories(index,names);
+			}
+		}
 	}
 };
 

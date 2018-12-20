@@ -79,7 +79,7 @@ module.exports = {
 				let response = await Vue.http.post(setup.API + '/categories/names');
 
 				if (response.data.err === 0) {
-					return response.data.categories;
+					return response.data.names;
 				} else {
 					Vue.toast.customToast({
 						title: 'Get Categories Names: Fail',
