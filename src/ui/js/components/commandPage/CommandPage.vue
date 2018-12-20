@@ -54,7 +54,7 @@
 			<input placeholder="Adresa">
 		</form>
 
-		<button class="btn btn-primary" @click="makeCommand">Comanda</button>
+		<button class="btn btn-violent" @click="makeCommand">Comanda</button>
 	</div>
 </template>
 

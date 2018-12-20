@@ -44,20 +44,20 @@
 			<input class="form-control" v-model="testStock" placeholder="Stock">
 
 			<input class="form-control" v-model="testSize" placeholder="Size" id="sizeInput">
-			<button class="btn btn-inline" type="button" @click="addSize">Add Size</button>
+			<button class="btn btn-violent" type="button" @click="addSize">Add Size</button>
 			<label for="sizeList">Sizes</label>
 			<ul id="sizeList">
 				<li v-for="(size, index) in SizesToShow " :key="index">
-					<p>{{size}}<button class="btn btn-inline" type="button" @click="popSize(size)"> x</button></p>
+					<p>{{size}}<button class="btn btn-violent" type="button" @click="popSize(size)"> x</button></p>
 				</li>
 			</ul>
 
 			<input class="form-control" v-model="testColors" placeholder="Color" id="colorInput">
-			<button class="btn btn-inline" type="button" @click="addColor">Add Color</button>
+			<button class="btn btn-violent" type="button" @click="addColor">Add Color</button>
 			<label for="colorList">Colors</label>
 			<ul id="colorList">
 				<li v-for="(color, index) in ColorsToShow " :key="index">
-					<p>{{color}}<button class="btn btn-inline" type="button" @click="popColor(color)"> x</button></p>
+					<p>{{color}}<button class="btn btn-violent" type="button" @click="popColor(color)"> x</button></p>
 				</li>
 			</ul>
 
@@ -65,21 +65,21 @@
 			<select v-model="testCategory" id="categoryInput">
 				<option v-for="(item,index) in Categories" :key=index :value="item">{{item}}</option>
 			</select>
-			<button @click="addCategory" class="btn btn-inline" type="button">Add Category</button>
+			<button @click="addCategory" class="btn btn-violent" type="button">Add Category</button>
 
 			<ul id="categoryList">
 				<li v-for="(category, index) in CategoriesToShow" :key="index">
 					<p>{{category}}<button type="button" @click="popCategory(category)"> x</button></p>
 				</li>
 			</ul>
-			<button class="btn" type="submit" @click="createProduct()">Add Product</button>
+			<button class="btn btn-violent" type="submit" @click="createProduct()">Add Product</button>
 		</form>
 		
 
 		<form>
 			<h2>Create Category</h2>
 			<input v-model="testCategoryToAdd" placeholder="Category Name">
-			<button class="btn" type="submit" @click="createCategory()">Create Category</button>
+			<button class="btn btn-violent" type="submit" @click="createCategory()">Create Category</button>
 		</form>
 		
 		<form>
@@ -118,7 +118,7 @@
 						<h4 class="card-title" @click="productPage(item.id)">{{ item.name }}</h4>
 						<div class="card-text">{{ item.price }} Lei</div>
 						<div class="row justify-content-end">
-							<button class="btn btn-primary" @click="removeProduct(item.id)" type="submit">Remove</button>
+							<button class="btn btn-violent" @click="removeProduct(item.id)" type="submit">Remove</button>
 						</div>
 					</div>
 				</div>

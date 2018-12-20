@@ -46,14 +46,14 @@
 				<input :id="item" type="checkbox" :value="item" @click="setToken(item)">{{ item }}<br>
 			</li>
 		</ul>
-		<button type="button" @click="ifToken(currentPage,categoryToken)">search</button>
+		<button class="btn btn-violent" type="button" @click="ifToken(currentPage,categoryToken)">search</button>
 		
 		<select v-model="categoryToken">
 			<option :value="''"></option>
 			<option v-for="(item,index) in Categories" :key=index :value="item">{{ item }}</option>
 		</select>
 
-		<b-pagination size="large" align="center" v-model="currentPage" :total-rows="this.pages*30"  :per-page="30" @input="ifToken(currentPage,categoryToken)">
+		<b-pagination class="pagination" size="large" align="center" v-model="currentPage" :total-rows="this.pages*30"  :per-page="30" @input="ifToken(currentPage,categoryToken)">
 		</b-pagination>
 
 		<div class="row">
@@ -90,7 +90,7 @@
 				</div>
 			</div>
 		</div>
-		<b-pagination size="large" align="center" v-model="currentPage" :total-rows="100"  :per-page="10" @input="ifToken(currentPage,categoryToken)">
+		<b-pagination size="large" align="center" v-model="currentPage" :total-rows="this.pages*30"  :per-page="30" @input="ifToken(currentPage,categoryToken)">
 		</b-pagination>
 	</div>
 </template>
