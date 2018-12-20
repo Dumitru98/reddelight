@@ -69,28 +69,40 @@ publicApp.post('/names', async function(req, res) {
 
 publicApp.post('/get', async function(req, res) {
 	try {
-		var category = await db.category.findByCategoryName(req.body.name);
-			
-		if (category) {
-			var productsToSend = [];
-			var i = 1;
-			var stopIndex = req.body.startIndex*30;
-			var startIndex = stopIndex-30 + 1;
+		var category = await db.category.findByCategoryName(req.body.names[0]);
+		var productsOfAllCategories = [];
+		var products = category.products;
 
-			for (let product of category.products) {
-				if (i >= startIndex && i <= stopIndex) {
-					productsToSend.push(product);
+		for (let product of products) {
+			var productToSend = true;
+
+			for (let name of req.body.names) {
+				if (!product.categories.includes(name)) {
+					productToSend = false;
+					break;
 				}
-
-				i ++;
 			}
 
-			debug('Products from category ' + req.body.name + ' got successful');
-			return res.status(200).send({ err: 0, products: category.products });
-		} else {
-			debug('Category doesn\'t exist');
-			return res.status(200).send({ err: 1, message: 'The category ' + req.body.name + ' doesn\'t exist!' });
+			if (productToSend) {
+				productsOfAllCategories.push(product);
+			}
 		}
+
+		var productsToSend = [];
+		var i = 1;
+		var stopIndex = req.body.startIndex * 30;
+		var startIndex = stopIndex - 30 + 1;
+
+		for (let product of productsOfAllCategories) {
+			if (i >= startIndex && i <= stopIndex) {
+				productsToSend.push(product);
+			}
+
+			i ++;
+		}
+
+		debug('Products from categories got successful');
+		return res.status(200).send({ err: 0, products: productsToSend });
 	} catch(e) {
 		debug('Server error');
 		return res.status(400).send({ err: 1, message: 'Server error\n' + e });
