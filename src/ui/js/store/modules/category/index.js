@@ -95,14 +95,15 @@ module.exports = {
 			}
 		},
 
-		async get(store, name, index) {
+		async get(store, names, index) {
 			try {
 				let response = await Vue.http.post(setup.API + '/categories/get', {
-					name: name,
+					names: names,
 					startIndex: index
 				});
 
 				if (response.data.err === 0) {
+					console.log(response.data);
 					return response.data.products;
 				} else {
 					Vue.toast.customToast({

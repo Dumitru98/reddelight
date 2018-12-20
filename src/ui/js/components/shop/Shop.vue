@@ -200,7 +200,7 @@ module.exports = {
 			}
 		},
 		async getProductsCategories(index,names){
-			console.log(name + ' '+ index);
+			console.log(names + ' '+ index);
 			let state = await this.$store.dispatch('category/get',names,index);
 			if(state){
 				this.products=[];

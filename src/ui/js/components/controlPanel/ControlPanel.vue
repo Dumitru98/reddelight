@@ -199,7 +199,7 @@ module.exports = {
 			console.log(state);
 
 			for(let category of state) {
-				this.Categories.push(category.name);
+				this.Categories.push(category);
 			}
 
 			this.Categories.sort();
