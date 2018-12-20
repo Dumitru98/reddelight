@@ -48,11 +48,6 @@
 		</ul>
 		<button class="btn btn-violent" type="button" @click="ifToken(currentPage,categoryToken)">search</button>
 		
-		<select v-model="categoryToken">
-			<option :value="''"></option>
-			<option v-for="(item,index) in Categories" :key=index :value="item">{{ item }}</option>
-		</select>
-
 		<b-pagination class="pagination" size="large" align="center" v-model="currentPage" :total-rows="this.pages*30"  :per-page="30" @input="ifToken(currentPage,categoryToken)">
 		</b-pagination>
 

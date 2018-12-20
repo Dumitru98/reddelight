@@ -71,7 +71,7 @@
 					<div class="card-text">Descriere</div>
 					<div class="card-text">{{ product.price / 100 }} lei</div>
 					<div class="row justify-content-end">
-						<button class="btn btn-primary" @click="addToCart()">Add to cart</button>
+						<button class="btn btn-violent" @click="addToCart()">Add to cart</button>
 					</div>
 				</div>
 			</div>
